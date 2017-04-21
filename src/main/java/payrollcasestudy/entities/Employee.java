@@ -3,6 +3,7 @@ package payrollcasestudy.entities;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
 import payrollcasestudy.entities.paymentmethods.PaymentMethod;
 import payrollcasestudy.entities.paymentschedule.PaymentSchedule;
+import payrollcasestudy.transactions.add.UnionAffiliation;
 
 import java.util.Calendar;
 
@@ -10,6 +11,7 @@ public class Employee {
     private PaymentClassification paymentClassification;
     private PaymentSchedule paymentSchedule;
     private PaymentMethod paymentMethod;
+    private UnionAffiliation unionAffiliation = UnionAffiliation.NO_AFFILIATION; 
     private int employeeId;
     private String name;
     private String address;
@@ -75,5 +77,9 @@ public class Employee {
         payCheck.setNetPay(netPay);
         paymentMethod.pay(payCheck);
     }
+
+	public UnionAffiliation getUnionAffiliation() {
+		return unionAffiliation;
+	}
 
 }

@@ -4,7 +4,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import payrollcasestudy.DatabaseResource;
 import payrollcasestudy.entities.Employee;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.SalariedClassification;
 import payrollcasestudy.entities.paymentmethods.HoldMethod;
