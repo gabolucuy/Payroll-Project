@@ -6,6 +6,7 @@ import payrollcasestudy.DatabaseResource;
 import payrollcasestudy.entities.PayCheck;
 import payrollcasestudy.transactions.add.*;
 import payrollcasestudy.transactions.change.ChangeMemberTransaction;
+import payrollcasestudy.transactions.change.AddServiceChargeTransaction;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
