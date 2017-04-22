@@ -7,9 +7,12 @@ import payrollcasestudy.entities.ServiceCharge;
 public class UnionAffiliation {
 
 	public static final UnionAffiliation NO_AFFILIATION = null;
+	 private int memberId;
+	 private double weeklyUnionDues;
 	
-	public UnionAffiliation(int memberId, double d) {
-		
+	public UnionAffiliation(int memberId, double weeklyUnionDues) {
+		this.memberId=memberId;
+		this.weeklyUnionDues=weeklyUnionDues;
 	}
 
 
@@ -19,7 +22,7 @@ public class UnionAffiliation {
 	}
 
 	public Double getDues() {
-		return null;
+		return weeklyUnionDues;
 	}
 
 }

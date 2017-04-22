@@ -40,7 +40,6 @@ public class ChangeNoMemberTransactionTest {
         employee = database.getEmployee(employeeId);
         assertThat(employee.getUnionAffiliation(), is(UnionAffiliation.NO_AFFILIATION));
 
-        assertThat(database.getUnionMember(memberId), is(nullValue()));// En la linea 19 se suponelo esty borrando de la BD no se 
-        															  // Pq sigue el error
+        assertThat(database.getUnionMember(memberId), is(nullValue()));
     }
 }
