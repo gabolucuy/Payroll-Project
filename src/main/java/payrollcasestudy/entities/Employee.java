@@ -82,4 +82,9 @@ public class Employee {
 		return unionAffiliation;
 	}
 
+	public void setUnionAffiliation(UnionAffiliation unionAffiliation2) {
+		
+		unionAffiliation=unionAffiliation2;
+	}
+
 }

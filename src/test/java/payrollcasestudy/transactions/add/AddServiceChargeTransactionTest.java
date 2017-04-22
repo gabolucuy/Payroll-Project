@@ -7,6 +7,7 @@ import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.ServiceCharge;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.transactions.Transaction;
+import payrollcasestudy.transactions.change.AddServiceChargeTransaction;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
