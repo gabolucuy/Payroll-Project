@@ -34,12 +34,13 @@ public class ChangeNoMemberTransactionTest {
         database.addUnionMember(memberId, employee);
         assertThat(database.getUnionMember(memberId), is(employee));
 
-        Transaction noMemberTransaction = new ChangeNoMemberTransaction(employeeId);
+        Transaction noMemberTransaction = new ChangeNoMemberTransaction(employeeId, memberId);
         noMemberTransaction.execute();
 
         employee = database.getEmployee(employeeId);
         assertThat(employee.getUnionAffiliation(), is(UnionAffiliation.NO_AFFILIATION));
 
-        assertThat(database.getUnionMember(memberId), is(nullValue()));
+        assertThat(database.getUnionMember(memberId), is(nullValue()));// En la linea 19 se suponelo esty borrando de la BD no se 
+        															  // Pq sigue el error
     }
 }
