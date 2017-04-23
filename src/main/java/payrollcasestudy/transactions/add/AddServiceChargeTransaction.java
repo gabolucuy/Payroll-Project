@@ -2,23 +2,26 @@ package payrollcasestudy.transactions.add;
 
 import java.util.Calendar;
 
+import payrollcasestudy.boundaries.PayrollDatabase;
+import payrollcasestudy.entities.Employee;
 import payrollcasestudy.transactions.Transaction;
+import payrollcasestudy.entities.ServiceCharge;
 
 public class AddServiceChargeTransaction implements Transaction {
 
 	 private int memberId;
 	 private Calendar payDate;
-	 private double serviceCharge;
-
+	 private ServiceCharge serviceCharge;
+	 
 	public AddServiceChargeTransaction(int memberId, Calendar payDate, double serviceCharge) {
 		this.memberId=memberId;
-		this.payDate=payDate;
-		this.serviceCharge=serviceCharge;
+		this.serviceCharge=new ServiceCharge(payDate,serviceCharge);
 	}
 
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		Employee employee = PayrollDatabase.globalPayrollDatabase.getUnionMember(memberId);
+		employee.addServiceChargeTransaccion(payDate, serviceCharge);
+		
 	}
 
 }

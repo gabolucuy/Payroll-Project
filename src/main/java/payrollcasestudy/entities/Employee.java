@@ -87,4 +87,9 @@ public class Employee {
 		unionAffiliation=unionAffiliation2;
 	}
 
+	public void addServiceChargeTransaccion(Calendar payDate, ServiceCharge serviceCharge) {
+		unionAffiliation.addServiceCharge(payDate, serviceCharge);
+	}
+
+
 }

@@ -18,4 +18,6 @@ public class ServiceCharge {
     public Calendar getDate() {
         return date;
     }
+
+	
 }
