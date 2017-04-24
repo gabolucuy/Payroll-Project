@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import payrollcasestudy.boundaries.PayrollDatabase;
-import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.ServiceCharge;
 
 public class UnionAffiliation {
@@ -13,7 +11,7 @@ public class UnionAffiliation {
 	public static final UnionAffiliation NO_AFFILIATION = null;
 	 private int memberId;
 	 private double weeklyUnionDues;
-	 private Map<Calendar, ServiceCharge> serviceCharge = new HashMap<Calendar, ServiceCharge>();
+	 private ServiceCharge serviceCharge;
 	 
 	public UnionAffiliation(int memberId, double weeklyUnionDues) {
 		this.memberId=memberId;
@@ -23,7 +21,10 @@ public class UnionAffiliation {
 
 
 	public ServiceCharge getServiceCharge(Calendar date) {
-		return serviceCharge.get(date);
+		if (serviceCharge.getDate()==date)
+			return serviceCharge;
+		else
+			return null;
 	}
 
 	public Double getDues() {
@@ -31,8 +32,8 @@ public class UnionAffiliation {
 	}
 
 
-	public void addServiceCharge(Calendar payDate, ServiceCharge serviceCharge2) {
-		serviceCharge.put(payDate, serviceCharge2);
+	public void addServiceCharge(ServiceCharge serviceCharge2) {
+		serviceCharge= serviceCharge2;
 	}
 
 }

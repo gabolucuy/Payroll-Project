@@ -71,8 +71,11 @@ public class Employee {
     }
 
     public void payDay(PayCheck payCheck) {
+    	double discount=0;
+    	if (unionAffiliation!=null)
+    		discount = unionAffiliation.getDues();
         double grossPay = paymentClassification.calculatePay(payCheck);
-        double netPay = grossPay;
+    	double netPay = grossPay- discount;
         payCheck.setGrossPay(grossPay);
         payCheck.setNetPay(netPay);
         paymentMethod.pay(payCheck);
@@ -88,7 +91,7 @@ public class Employee {
 	}
 
 	public void addServiceChargeTransaccion(Calendar payDate, ServiceCharge serviceCharge) {
-		unionAffiliation.addServiceCharge(payDate, serviceCharge);
+		unionAffiliation.addServiceCharge(serviceCharge);
 	}
 
 
