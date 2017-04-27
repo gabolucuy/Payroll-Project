@@ -174,9 +174,15 @@ public class PaydayTransactionTest {
         PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute();
 
-        int numberOfWeeksInPayPeriod = 5;
+        double numberOfWeeksInPayPeriod = 5;
         double expectedDues = numberOfWeeksInPayPeriod * weeklyUnionDues;
-        validateHourlyPaycheck(paydayTransaction, employeeId, payDate, 1000.0, expectedDues);
+        PayCheck payCheck = paydayTransaction.getPaycheck(employeeId);
+		assertThat(payCheck, is(notNullValue()));
+		assertThat(payCheck.getPayPeriodEnd(), is(payDate));
+		assertThat(payCheck.getGrossPay(), is(closeTo(1000.0, FLOAT_ACCURACY)));
+		assertThat(payCheck.getField("Disposition"), is("Hold"));
+		assertThat(payCheck.getDeductions(), is(closeTo(expectedDues, FLOAT_ACCURACY)));
+		assertThat(payCheck.getNetPay(), is(closeTo(1000.0 - expectedDues, FLOAT_ACCURACY)));
     }
 
     @Test

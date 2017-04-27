@@ -16,7 +16,7 @@ public class PayCheck {
         this.payPeriodStart = payPeriodStart;
         this.payDate = payPeriodEnd;
     }
-
+   
     public Calendar getPayPeriodEnd() {
         return this.payDate;
     }
@@ -56,4 +56,5 @@ public class PayCheck {
     public Calendar getPayPeriodStart() {
         return payPeriodStart;
     }
+   
 }

@@ -11,16 +11,18 @@ public class AddServiceChargeTransaction implements Transaction {
 
 	 private int memberId;
 	 private Calendar payDate;
-	 private ServiceCharge serviceCharge;
+	 private double amount;
 	 
-	public AddServiceChargeTransaction(int memberId, Calendar payDate, double serviceCharge) {
+	public AddServiceChargeTransaction(int memberId, Calendar payDate, double amount) {
 		this.memberId=memberId;
-		this.serviceCharge=new ServiceCharge(payDate,serviceCharge);
+		this.payDate=payDate;
+		this.amount=amount;
 	}
 
 	public void execute() {
 		Employee employee = PayrollDatabase.globalPayrollDatabase.getUnionMember(memberId);
-		employee.addServiceChargeTransaccion(payDate, serviceCharge);
+		if(employee != null)
+			employee.getUnionAffiliation().addServiceCharge(payDate, amount);
 		
 	}
 
