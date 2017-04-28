@@ -14,7 +14,7 @@ public class Employee {
     private int employeeId;
     private String name;
     private String address;
-    private UnionAffiliation unionAffiliation;
+    private UnionAffiliation unionAffiliation = UnionAffiliation.NO_AFFILIATION;
 
     public Employee(int employeeId, String name, String address) {
         this.employeeId = employeeId;
@@ -72,13 +72,11 @@ public class Employee {
     }
 
     public void payDay(PayCheck payCheck) {
-    	//double numberOfWeeksInPayPeriod=payCheck.NumberOfWeeks();
         double grossPay = paymentClassification.calculatePay(payCheck);
         double deduction=unionAffiliation.calculteDeductions(payCheck);
     	double netPay = grossPay - deduction ;
         payCheck.setGrossPay(grossPay);
         payCheck.setNetPay(netPay);
-        //System.out.println(numberOfWeeksInPayPeriod+payCheck.NumberOfWeeks());
         payCheck.setDeductions(deduction);
         paymentMethod.pay(payCheck);
     }
@@ -87,9 +85,9 @@ public class Employee {
 		return unionAffiliation;
 	}
 
-	public void setUnionAffiliation(UnionAffiliation unionAffiliation2) {
+	public void setUnionAffiliation(UnionAffiliation unionAffiliation) {
 		
-		unionAffiliation=unionAffiliation2;
+		this.unionAffiliation=unionAffiliation;
 	}
 
 	

@@ -3,15 +3,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import payrollcasestudy.entities.Employee;
+import org.hamcrest.Matcher;
+
 import payrollcasestudy.entities.PayCheck;
 import payrollcasestudy.entities.ServiceCharge;
-import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
-//import payrollcasestudy.entities.paymentclassifications.PaymentClassification.isInPayPeriod;
+import static payrollcasestudy.entities.paymentclassifications.PaymentClassification.isInPayPeriod;
 
 public class UnionAffiliation {
 
-	public static final UnionAffiliation NO_AFFILIATION = new UnionAffiliation(0,0);
+	 public static final UnionAffiliation NO_AFFILIATION = new UnionAffiliation(0,0);
 	 private int memberId;
 	 private double weeklyUnionDues;
 	 private Map<Calendar, ServiceCharge> serviceCharges = new HashMap<Calendar, ServiceCharge>();
@@ -29,8 +29,8 @@ public class UnionAffiliation {
 		return weeklyUnionDues;
 	}
 
-	public void addServiceCharge(Calendar date,double amount) {
-		this.serviceCharges.put(date,new ServiceCharge(date,amount));
+	public void addServiceCharge(Calendar date,double weeklyUnionDues) {
+		this.serviceCharges.put(date,new ServiceCharge(date,weeklyUnionDues));
 	}
 	 public int NumberOfWeeks(PayCheck paycheck){
 		 int numberOfWeeks = 0;
@@ -48,9 +48,9 @@ public class UnionAffiliation {
 	 public double calculteDeductions(PayCheck paycheck){
 		 double totalDeductions = 0;
 		 totalDeductions += NumberOfWeeks(paycheck);
-		 for(ServiceCharge serviceCharge:serviceCharges.values()){
-			 if(PaymentClassification.isInPayPeriod(serviceCharge.getDate(),paycheck)){
-				 totalDeductions+= serviceCharge.getAmount();
+		 for(ServiceCharge serviceCharge : serviceCharges.values()){
+			 if(isInPayPeriod(serviceCharge.getDate(),paycheck)){
+				 totalDeductions += serviceCharge.getAmount();
 			 }
 		 }
 		 return totalDeductions;
