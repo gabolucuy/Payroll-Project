@@ -34,7 +34,7 @@ public class ChangeNoMemberTransactionTest {
         database.addUnionMember(memberId, employee);
         assertThat(database.getUnionMember(memberId), is(employee));
 
-        Transaction noMemberTransaction = new ChangeNoMemberTransaction(employeeId, memberId);
+        Transaction noMemberTransaction = new ChangeNoMemberTransaction(employeeId);
         noMemberTransaction.execute();
 
         employee = database.getEmployee(employeeId);

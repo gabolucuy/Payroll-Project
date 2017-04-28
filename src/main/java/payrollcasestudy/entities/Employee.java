@@ -1,9 +1,9 @@
 package payrollcasestudy.entities;
 
+import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
 import payrollcasestudy.entities.paymentmethods.PaymentMethod;
 import payrollcasestudy.entities.paymentschedule.PaymentSchedule;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
 
 import java.util.Calendar;
 
@@ -21,6 +21,7 @@ public class Employee {
         this.name = name;
         this.address = address;
         unionAffiliation = UnionAffiliation.NO_AFFILIATION;
+        
     }
 
     public PaymentClassification getPaymentClassification() {
@@ -73,24 +74,22 @@ public class Employee {
 
     public void payDay(PayCheck payCheck) {
         double grossPay = paymentClassification.calculatePay(payCheck);
-        double deduction=unionAffiliation.calculteDeductions(payCheck);
-    	double netPay = grossPay - deduction ;
+        double deductions = unionAffiliation.calculateDeduction(payCheck);
+        double netPay = grossPay - deductions;
         payCheck.setGrossPay(grossPay);
         payCheck.setNetPay(netPay);
-        payCheck.setDeductions(deduction);
+        payCheck.setDeductions(deductions);
         paymentMethod.pay(payCheck);
     }
 
 	public UnionAffiliation getUnionAffiliation() {
+		// TODO Auto-generated method stub
 		return unionAffiliation;
 	}
 
 	public void setUnionAffiliation(UnionAffiliation unionAffiliation) {
-		
-		this.unionAffiliation=unionAffiliation;
+		// TODO Auto-generated method stub
+		this.unionAffiliation = unionAffiliation;
 	}
-
-	
-
 
 }
