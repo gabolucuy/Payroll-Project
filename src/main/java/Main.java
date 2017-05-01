@@ -2,6 +2,7 @@ import static spark.Spark.*;
 
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.ServiceCharge;
 
 public class Main {
 	private static PayrollDatabase payrollDatabase = new PayrollDatabase();
@@ -9,9 +10,14 @@ public class Main {
 	public static void main(String[] args) {
 		get("/", (request, response) -> registro_form());
 		get("/registrar_Nuevo_Empleado", (request, response) -> registro_form());
+		get("/ver_lista_empleados", (request, response) -> ver_lista_empleados());
 		post("/registrar", (request, response) -> registrar_empleado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci")));
 	}
-
+	public static String ver_lista_empleados(){
+		String lista = null;
+		lista = payrollDatabase.showEmployees();
+		return lista;
+	}
 	private static String registrar_empleado(String nombre_empleado,String direccion_empleado,String ci_employee) {
 		int ci = Integer.parseInt(ci_employee);
 		Employee employee = new Employee(ci,nombre_empleado,direccion_empleado);
@@ -43,7 +49,9 @@ public class Main {
 				+ "<B>Ci empleado: </B>" +ci+ "</br></br>"
 				+ "<B>Direccion empleado</B> "+direccion_empleado+" </br></br>"
 				+ "<input type='submit' value='Registrar otro empleado'>"
-				+ "<button value='Ver empleados'>"
+				+ "<form action='/ver_lista_empleados'>"
+			    + "<input type='/ver_lista_empleados' value='Ver lista de empleados' />"
+			    +"</form>"
 				+ "</div>"
 				+ "</body>"
 				+ "</html>";
@@ -99,8 +107,10 @@ public class Main {
 				+ "<label>Direccion:</label>"
 				+ "<input type='text' name='direccion_empleado'>"
 				+ "</br>"+ "</br>"
-				+ "<input type='submit' value='Registrarse'>"
-				+ "<button value='Ver empleados'>"
+				+ "<input type='ver_lista_empleados' value='Registrarse'>"
+				+ "<form action='/ver_lista_empleados'>"
+			    + "<input type='submit' value='Ver lista de empleados' />"
+			    +"</form>"
 				+ "</div>"
 				+ "</body>"
 				+ "</html>";

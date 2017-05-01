@@ -91,5 +91,9 @@ public class Employee {
 		// TODO Auto-generated method stub
 		this.unionAffiliation = unionAffiliation;
 	}
+	public String print(){
+		return "Nombre: "+ name + "Ci: "+ String.valueOf(employeeId) + "Direccion: " + address +"\r"; 
+	}
+
 
 }
