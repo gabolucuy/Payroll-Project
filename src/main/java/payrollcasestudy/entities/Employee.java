@@ -92,7 +92,7 @@ public class Employee {
 		this.unionAffiliation = unionAffiliation;
 	}
 	public String print(){
-		return "Nombre: "+ name + "Ci: "+ String.valueOf(employeeId) + "Direccion: " + address +"\r"; 
+		return "Nombre: "+ name + "Ci: "+ String.valueOf(employeeId) + "Direccion: " + address+"</br>"; 
 	}
 
 

@@ -4,10 +4,12 @@ import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.ServiceCharge;
 
+
 public class Main {
 	private static PayrollDatabase payrollDatabase = new PayrollDatabase();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+		{
 		get("/", (request, response) -> registro_form());
 		get("/registrar_Nuevo_Empleado", (request, response) -> registro_form());
 		get("/ver_lista_empleados", (request, response) -> ver_lista_empleados());
@@ -16,12 +18,41 @@ public class Main {
 	public static String ver_lista_empleados(){
 		String lista = null;
 		lista = payrollDatabase.showEmployees();
-		return lista;
+		return "<html>"
+		+"<style>"
+		+"input[type=submit]{"
+		  +  "width: 100%;"
+		   + "background-color: #4CAF50;"
+		   + "color: white;"
+		   + "padding: 14px 20px;"
+		   + "margin: 8px 0;"
+		   + "border: none;"
+		   + "border-radius: 4px;"
+		   + "cursor: pointer;}"
+		+"input[type=submit]:hover{"
+		   + "background-color: #45a049;}"
+		+"div{"
+	    +"border-radius: 5px;"
+	    +"background-color: #f2f2f2;"
+	    +"padding: 20px;"
+	    + "  width: 50%;}"
+	    +"</style>"
+		+ "<body>"
+		+ "<div>"
+		+ lista
+		+ "<form action='/registrar_Nuevo_Empleado'>"
+	    + "<input type='submit' value='Registrar nuevo empleado' />"
+	    +"</form>"
+		+ "</div>"
+		+ "</body>"
+		+ "</html>";
 	}
 	private static String registrar_empleado(String nombre_empleado,String direccion_empleado,String ci_employee) {
 		int ci = Integer.parseInt(ci_employee);
 		Employee employee = new Employee(ci,nombre_empleado,direccion_empleado);
 		payrollDatabase.addEmployee(ci, employee);
+		
+		
 		
 		return "<html>"
 				+"<style>"
@@ -49,8 +80,9 @@ public class Main {
 				+ "<B>Ci empleado: </B>" +ci+ "</br></br>"
 				+ "<B>Direccion empleado</B> "+direccion_empleado+" </br></br>"
 				+ "<input type='submit' value='Registrar otro empleado'>"
+				+"</form>"
 				+ "<form action='/ver_lista_empleados'>"
-			    + "<input type='/ver_lista_empleados' value='Ver lista de empleados' />"
+			    + "<input type='submit' value='Ver lista de empleados' />"
 			    +"</form>"
 				+ "</div>"
 				+ "</body>"
@@ -107,7 +139,8 @@ public class Main {
 				+ "<label>Direccion:</label>"
 				+ "<input type='text' name='direccion_empleado'>"
 				+ "</br>"+ "</br>"
-				+ "<input type='ver_lista_empleados' value='Registrarse'>"
+				+ "<input type='submit' value='Registrarse'>"
+				+"</form>"
 				+ "<form action='/ver_lista_empleados'>"
 			    + "<input type='submit' value='Ver lista de empleados' />"
 			    +"</form>"
