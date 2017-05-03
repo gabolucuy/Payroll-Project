@@ -38,6 +38,13 @@ public class Main {
 			    );
 			});
 		get("/ver_lista_empleados", (request, response) -> ver_lista_empleados());
+		get("ver_lista_empleados", (req, res) -> {
+		    Map<String, Object> model = new HashMap<>();
+		    model.put("Nombre", employeeController.showEmployees());
+		    return new VelocityTemplateEngine().render(
+		        new ModelAndView(model, "path-to-template")
+		    );
+		});
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
