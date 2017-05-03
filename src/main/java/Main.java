@@ -22,6 +22,11 @@ public class Main {
 		        new ModelAndView(new HashMap(), "registernewSalariedEmployeeForm.vtl")
 		    );
 		});
+		get("/newSalariedEmployeeComisionaded", (req, res) -> {
+		    return new VelocityTemplateEngine().render(
+		        new ModelAndView(new HashMap(), "registernewSalariedEmployeeComisionadedForm.vtl")
+		    );
+		});
 		get("/newHourlyEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
 		        new ModelAndView(new HashMap(), "registernewHourlyEmployeeForm.vtl")
@@ -35,6 +40,7 @@ public class Main {
 		get("/ver_lista_empleados", (request, response) -> ver_lista_empleados());
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
+		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
 
 		}
 	public static String ver_lista_empleados(){
