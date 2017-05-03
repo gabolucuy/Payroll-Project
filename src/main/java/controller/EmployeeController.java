@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.Set;
+
+import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddCommissionedEmployeeTransaction;
@@ -35,6 +38,12 @@ public class EmployeeController {
 	    addEmployeeTransaction.execute();
 	    return "Empleado por hora creado satisfactoriamente!";
 	}
+	public static String showEmployee(){
+		String lista = null;
+		 lista = PayrollDatabase.globalPayrollDatabase.showEmployees();
+		return lista;
+	}
+
 	
 
 }

@@ -38,6 +38,11 @@ public class Main {
 			    );
 			});
 		get("/ver_lista_empleados", (request, response) -> ver_lista_empleados());
+		get("/registrar_Nuevo_Empleado", (req, res) -> {
+		    return new VelocityTemplateEngine().render(
+			        new ModelAndView(new HashMap(), "home.vtl")
+			    );
+			});
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
@@ -45,7 +50,7 @@ public class Main {
 		}
 	public static String ver_lista_empleados(){
 		String lista = null;
-		lista = payrollDatabase.showEmployees();
+		lista = EmployeeController.showEmployee();
 		return "<html>"
 		+"<style>"
 		+"input[type=submit]{"
