@@ -21,28 +21,30 @@ public class Main {
 	public static void main(String[] args) 
 		{
 		HashMap<String,Object> view = new HashMap<String, Object>();
-		get("/newEmployee", (req, res) -> {
-		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "Employee/registerEmployee.vtl")
-		    );
-		});
+		
 		get("/", (request, response) -> {
 		    return new VelocityTemplateEngine().render(
 			        new ModelAndView(new HashMap(), "home.vtl")
 			    );
 			});
+		
+		get("/generar_papeletas", (req, res) -> {
+		    return new VelocityTemplateEngine().render(
+			        new ModelAndView(new HashMap(), "PapeletasDePago/generar_papeletas.vtl")
+			    );
+			});
+		get("/registrar_Nuevo_Empleado", (req, res) -> {
+		    return new VelocityTemplateEngine().render(
+			        new ModelAndView(new HashMap(), "home.vtl")
+			    );
+			});
+		//Ver
 		get("/ver_lista_empleados", (request, response) -> {
 			ArrayList<Employee> employees=new ArrayList<>();
 			employees =EmployeeController.getListOfAllEmployees();
 			view.put("employees", employees);
 		      return new ModelAndView(view, "Employee/showEmployees.vtl");
 		    }, new VelocityTemplateEngine());
-		get("/registrar_Nuevo_Empleado", (req, res) -> {
-		    return new VelocityTemplateEngine().render(
-			        new ModelAndView(new HashMap(), "home.vtl")
-			    );
-			});
-		
 		get("/ver_empleado/:id", (request, response) -> {
 			
 			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
@@ -51,6 +53,12 @@ public class Main {
 		    }, new VelocityTemplateEngine());
 		
 		//Registros
+		get("/newEmployee", (req, res) -> {
+		    return new VelocityTemplateEngine().render(
+		        new ModelAndView(new HashMap(), "Employee/registerEmployee.vtl")
+		    );
+		});
+		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));

@@ -39,7 +39,7 @@ public class EmployeeController {
 	    Transaction addEmployeeTransaction =
 	            new AddCommissionedEmployeeTransaction(ci, nombre_empleado, direccion_empleado, amountt , comisionn);
 	    addEmployeeTransaction.execute();
-	    return "Empleado con comisiones creado satisfactoriamente!";
+	    return "Empleado por hora creado satisfactoriamente!";
 	}
 	public static ArrayList<Employee> getListOfAllEmployees(){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
@@ -48,8 +48,8 @@ public class EmployeeController {
 	}
 
 	public static Employee getEmployee(int i) {
-		Employee listOfEmployees  = PayrollDatabase.globalPayrollDatabase.getEmployee(i);
-		return listOfEmployees;
+		Employee employee  = PayrollDatabase.globalPayrollDatabase.getEmployee(i);
+		return employee;
 	}
 
 	
