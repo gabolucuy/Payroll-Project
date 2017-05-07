@@ -51,15 +51,27 @@
 				   		<img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/calendar-128.png" alt="Paris" width="400" height="300">
 				   		<form action='/'> 
 				   			<label>Dia:</label> 
-			       			<input type='number' name='day' required>
+			       			<input type='number' name='day' id="day" required>
 			       			<label>Mes:</label> 
-			       			<input type='number' name='month' required>
+			       			<input type='number' name='month' id="month" required>
 			       			<label>Año:</label> 
-			       			<input type='number' name='year' required> 
+			       			<input type='number' name='year' id="year" required> 
 			       			
 			       			<input type='submit' value='OK' required> 
 			      		</form>  
 			      		 
+			      		<script>
+							var f=new Date();
+							
+							var day=f.getDate();
+							var month=  f.getMonth();
+							var year = f.getFullYear();
+							
+							
+							document.getElementById("day").value = day;
+							document.getElementById("month").value = month;
+							document.getElementById("year").value = year;
+						</script>
 				   </div> 
 				   </body> 
 				   </html> 
