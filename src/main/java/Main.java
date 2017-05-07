@@ -52,6 +52,15 @@ public class Main {
 			        new ModelAndView(new HashMap(), "home.vtl")
 			    );
 			});
+		
+		get("/ver_empleado/:id", (request, response) -> {
+			
+			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
+			view.put("employee", employee);
+		      return new ModelAndView(view, "Employee/showEmployee.vtl");
+		    }, new VelocityTemplateEngine());
+		
+		//Registros
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));

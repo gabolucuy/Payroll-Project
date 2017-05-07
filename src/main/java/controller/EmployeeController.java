@@ -47,6 +47,11 @@ public class EmployeeController {
 		return listOfEmployees;
 	}
 
+	public static Employee getEmployee(int i) {
+		Employee listOfEmployees  = PayrollDatabase.globalPayrollDatabase.getEmployee(i);
+		return listOfEmployees;
+	}
+
 	
 
 }
