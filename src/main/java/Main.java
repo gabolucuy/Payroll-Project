@@ -21,19 +21,9 @@ public class Main {
 	public static void main(String[] args) 
 		{
 		HashMap<String,Object> view = new HashMap<String, Object>();
-		get("/newSalariedEmployee", (req, res) -> {
+		get("/newEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "Employee/registernewSalariedEmployeeForm.vtl")
-		    );
-		});
-		get("/newSalariedEmployeeComisionaded", (req, res) -> {
-		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "Employee/registernewSalariedEmployeeComisionadedForm.vtl")
-		    );
-		});
-		get("/newHourlyEmployee", (req, res) -> {
-		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "Employee/registernewHourlyEmployeeForm.vtl")
+		        new ModelAndView(new HashMap(), "Employee/registerEmployee.vtl")
 		    );
 		});
 		get("/", (request, response) -> {

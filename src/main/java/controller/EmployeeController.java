@@ -39,7 +39,7 @@ public class EmployeeController {
 	    Transaction addEmployeeTransaction =
 	            new AddCommissionedEmployeeTransaction(ci, nombre_empleado, direccion_empleado, amountt , comisionn);
 	    addEmployeeTransaction.execute();
-	    return "Empleado por hora creado satisfactoriamente!";
+	    return "Empleado con comisiones creado satisfactoriamente!";
 	}
 	public static ArrayList<Employee> getListOfAllEmployees(){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
