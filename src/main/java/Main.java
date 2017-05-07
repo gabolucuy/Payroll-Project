@@ -23,17 +23,17 @@ public class Main {
 		HashMap<String,Object> view = new HashMap<String, Object>();
 		get("/newSalariedEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "registernewSalariedEmployeeForm.vtl")
+		        new ModelAndView(new HashMap(), "Employee/registernewSalariedEmployeeForm.vtl")
 		    );
 		});
 		get("/newSalariedEmployeeComisionaded", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "registernewSalariedEmployeeComisionadedForm.vtl")
+		        new ModelAndView(new HashMap(), "Employee/registernewSalariedEmployeeComisionadedForm.vtl")
 		    );
 		});
 		get("/newHourlyEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
-		        new ModelAndView(new HashMap(), "registernewHourlyEmployeeForm.vtl")
+		        new ModelAndView(new HashMap(), "Employee/registernewHourlyEmployeeForm.vtl")
 		    );
 		});
 		get("/", (request, response) -> {
