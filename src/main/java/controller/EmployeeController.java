@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import payrollcasestudy.boundaries.PayrollDatabase;
@@ -38,10 +41,10 @@ public class EmployeeController {
 	    addEmployeeTransaction.execute();
 	    return "Empleado por hora creado satisfactoriamente!";
 	}
-	public static String showEmployee(){
-		String lista = null;
-		 lista = PayrollDatabase.globalPayrollDatabase.showEmployees();
-		return lista;
+	public static ArrayList<Employee> getListOfAllEmployees(){
+		ArrayList<Employee> listOfEmployees = new ArrayList<>();
+		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllEmployees();
+		return listOfEmployees;
 	}
 
 	

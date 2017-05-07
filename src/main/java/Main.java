@@ -1,5 +1,6 @@
 import static spark.Spark.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.EmployeeController;
@@ -19,6 +20,7 @@ public class Main {
 
 	public static void main(String[] args) 
 		{
+		HashMap<String,Object> view = new HashMap<String, Object>();
 		get("/newSalariedEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
 		        new ModelAndView(new HashMap(), "registernewSalariedEmployeeForm.vtl")
@@ -39,7 +41,12 @@ public class Main {
 			        new ModelAndView(new HashMap(), "home.vtl")
 			    );
 			});
-		get("/ver_lista_empleados", (request, response) -> PayrollController.ver_lista_empleados());
+		get("/ver_lista_empleados", (request, response) -> {
+			ArrayList<Employee> employees=new ArrayList<>();
+			employees =EmployeeController.getListOfAllEmployees();
+			view.put("employees", employees);
+		      return new ModelAndView(view, "Employee/showEmployees.vtl");
+		    }, new VelocityTemplateEngine());
 		get("/registrar_Nuevo_Empleado", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
 			        new ModelAndView(new HashMap(), "home.vtl")

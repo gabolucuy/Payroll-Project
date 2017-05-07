@@ -59,7 +59,10 @@ public class Employee {
     public String getAddress() {
         return address;
     }
-
+    
+    public int getEmployeeId(){
+    	return employeeId;
+    }
     public void setAddress(String address) {
         this.address = address;
     }
@@ -91,9 +94,7 @@ public class Employee {
 		// TODO Auto-generated method stub
 		this.unionAffiliation = unionAffiliation;
 	}
-	public String print(){
-		return "<b>Nombre:</b>"+ name + "</br><b>Ci:</b> "+ String.valueOf(employeeId) + "</br><b>Direccion:</b> " + address+"</br></br></br>"; 
-	}
+	
 
 
 }

@@ -47,15 +47,14 @@ public class PayrollDatabase {
     public Set<Integer> getAllEmployeeIds() {
         return employees.keySet();
     }
-
-	public String showEmployees() {
-		String list = "";
-		for(Employee employee1 : employees.values()){
-			list = list + employee1.print();
+    public ArrayList<Employee> getAllEmployees(){
+    	ArrayList<Employee> listOfEmployees = new ArrayList<>();
+    	for(Employee employee : employees.values()){
+    		listOfEmployees.add(employee);
 		}
-		return list;
-	}
-    
+    	return listOfEmployees;
+    }
+	    
     
     
     
