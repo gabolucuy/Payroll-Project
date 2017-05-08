@@ -75,6 +75,10 @@ public class EmployeeController {
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		Transaction addTimeCard = new AddTimeCardTransaction(payDate, hours1, id);
          addTimeCard.execute();
+		
+		
+		
+		
 		return "Horas agregadas Satisfactoriamente";
 	}
 

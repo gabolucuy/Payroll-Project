@@ -43,11 +43,12 @@
 	      <form method = 'post' action='/addHourstoEmployee'> 
 	      <label>Cantidad de horas:</label> 
 			 <input type='number' name='hours' required> 
-	       <input type='submit' value=' Registrar horas' /> 
-	       <input name = 'day' type='hidden' value=' day'  />
-	       <input name = 'month' type='hidden' value=' month' />
-	       <input name = 'year' type='hidden' value=' year'  /> 
+	       <input name = 'day' type='hidden'  id="day"  />
+	       <input name = 'month' type='hidden' id="month" />
+	       <input name = 'year' type='hidden' id="year"  /> 
 	       <input name = 'employeeId' type='hidden' value='$employee.getEmployeeId().toString()'  />
+	       <input type='submit' value=' Registrar horas' /> 
+	       
 	      </form>
 	      <form action='/'> 
 	       <input type='submit' value=' Atras' /> 
