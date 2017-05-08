@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddCommissionedEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddSalariedEmployeeTransaction;
+import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class EmployeeController {
 
@@ -59,5 +61,21 @@ public class EmployeeController {
 		return paycheck;
 	}
 	
+	public static ArrayList<Employee> getListOfAllHourlyEmployees(){
+		ArrayList<Employee> listOfEmployees = new ArrayList<>();
+		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllHourlyEmployees();
+		return listOfEmployees;
+	}
+	public static String addHoursToEmployee(String employeeId,String hours,String year,String month,String day){
+		double hours1 = Double.parseDouble(hours);
+		int day1=Integer.parseInt(day); 
+		int month1=Integer.parseInt(month)-1; 
+		int year1=Integer.parseInt(year); 
+		int id = Integer.parseInt(employeeId);
+		Calendar payDate = new GregorianCalendar(year1, month1, day1);
+		Transaction addTimeCard = new AddTimeCardTransaction(payDate, hours1, id);
+         addTimeCard.execute();
+		return "Horas agregadas Satisfactoriamente";
+	}
 
 }

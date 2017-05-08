@@ -59,18 +59,31 @@ public class Main {
 			view.put("paycheck", paycheck);
 		      return new ModelAndView(view, "Employee/showEmployee.vtl");
 		    }, new VelocityTemplateEngine());
-		
+		get("/addHours/:id", (request, response) -> {
+			
+			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
+			view.put("employee", employee);
+		      return new ModelAndView(view, "Employee/addHoursForm.vtl");
+		    }, new VelocityTemplateEngine());
 		//Registros
 		get("/newEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
 		        new ModelAndView(new HashMap(), "Employee/registerEmployee.vtl")
 		    );
 		});
+		get("/addHours", (req, res) -> {
+			ArrayList<Employee> employees=new ArrayList<>();
+			employees =EmployeeController.getListOfAllHourlyEmployees();
+			view.put("employees", employees);
+		      return new ModelAndView(view, "Employee/viewHourlyEmployees.vtl");
+		    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
 		post("/pagarATodosLosEmpleados",(request, response) ->PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+		post("/addHourstoEmployee",(request, response) ->EmployeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+		
 		}
 	
 

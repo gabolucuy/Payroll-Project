@@ -23,8 +23,6 @@ public class PayDayController {
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute();
-        
-        
 		return "Se pago a todos los empleados";
 	}
 	
