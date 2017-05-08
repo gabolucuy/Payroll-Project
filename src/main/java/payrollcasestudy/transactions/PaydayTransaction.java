@@ -20,6 +20,8 @@ public class PaydayTransaction implements Transaction{
             Employee employee = database.getEmployee(employeeId);
             if (employee.isPayDate(payDate)){
                 PayCheck payCheck = new PayCheck(employee.getPayPeriodStartDay(payDate),payDate);
+                //payCheck=new PayCheck(new GregorianCalendar(5,5,2001),new GregorianCalendar(5,5,2005));
+        		
                 payChecks.put(employeeId, payCheck);               
                 employee.payDay(payCheck);
                 PayrollDatabase.globalPayrollDatabase.addPayCheck(employeeId, payCheck);

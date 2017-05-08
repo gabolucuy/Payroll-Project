@@ -1,6 +1,8 @@
 import static spark.Spark.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import controller.EmployeeController;
@@ -51,6 +53,7 @@ public class Main {
 			
 			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
 			PayCheck paycheck = EmployeeController.getPayCheck(Integer.parseInt(request.params(":id")));
+	
 			view.put("employee", employee);
 			
 			view.put("paycheck", paycheck);

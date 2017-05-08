@@ -24,6 +24,7 @@ public class PayDayController {
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute();
         
+        
 		return "Se pago a todos los empleados";
 	}
 	
