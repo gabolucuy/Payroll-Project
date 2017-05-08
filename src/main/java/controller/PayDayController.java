@@ -18,7 +18,7 @@ public class PayDayController {
 	
 	public static String pagarATodosLosEmpleados(String year,String month,String day){
 		int day1=Integer.parseInt(day); 
-		int month1=Integer.parseInt(month); 
+		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
