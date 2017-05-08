@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.EmployeeController;
+import controller.PayDayController;
 import controller.PayrollController;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.PayCheck;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -38,7 +40,7 @@ public class Main {
 			        new ModelAndView(new HashMap(), "home.vtl")
 			    );
 			});
-		//Ver
+		
 		get("/ver_lista_empleados", (request, response) -> {
 			ArrayList<Employee> employees=new ArrayList<>();
 			employees =EmployeeController.getListOfAllEmployees();
@@ -48,7 +50,10 @@ public class Main {
 		get("/ver_empleado/:id", (request, response) -> {
 			
 			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
+			PayCheck paycheck = EmployeeController.getPayCheck(Integer.parseInt(request.params(":id")));
 			view.put("employee", employee);
+			if(paycheck!=null)
+			view.put("paycheck", paycheck);
 		      return new ModelAndView(view, "Employee/showEmployee.vtl");
 		    }, new VelocityTemplateEngine());
 		
@@ -62,7 +67,7 @@ public class Main {
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
-
+		post("/pagarATodosLosEmpleados",(request, response) ->PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
 		}
 	
 

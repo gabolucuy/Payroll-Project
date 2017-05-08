@@ -39,7 +39,23 @@
 	    	 <b>Direccion :</b> $employee.getAddress().toString()</br>
 	    	 </p>
 	    	 
-	    	 
+	    	  <table 	class="table table-striped">
+    	<thead>
+    	 <th>Pago Bruto</th>
+    	 <th>Deducciones</th>
+    	 <th>Pago neto</th>
+    	
+    	</thead>
+    	<tbody>
+        	<tr>
+			    <td>$paycheck.getGrossPay().toString()</td>
+			    <td>$paycheck.getDeductions().toString()</td>
+			    <td>$paycheck.getNetPay().toString()</td> 	
+			    		
+			</tr>    
+			
+		</tbody>
+		</table>
      	<form action='/ver_lista_empleados'> 
 	       <input type='submit' value=' Atras' /> 
 	      </form>

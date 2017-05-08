@@ -56,4 +56,7 @@ public class PayCheck {
     public Calendar getPayPeriodStart() {
         return payPeriodStart;
     }
+    public void setStartDay(Calendar startDate){
+    	this.payPeriodStart=startDate;
+    }
 }

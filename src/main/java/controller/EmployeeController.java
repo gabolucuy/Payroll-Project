@@ -7,6 +7,8 @@ import java.util.Set;
 
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.PayCheck;
+import payrollcasestudy.transactions.PaydayTransaction;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddCommissionedEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
@@ -51,7 +53,10 @@ public class EmployeeController {
 		Employee employee  = PayrollDatabase.globalPayrollDatabase.getEmployee(i);
 		return employee;
 	}
-
+	public static PayCheck getPayCheck(int employeeId){
+		PayCheck paycheck = PayrollDatabase.globalPayrollDatabase.getPaycheck(employeeId);
+		return paycheck;
+	}
 	
 
 }

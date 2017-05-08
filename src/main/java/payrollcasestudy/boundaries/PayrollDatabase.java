@@ -1,6 +1,7 @@
 package payrollcasestudy.boundaries;
 
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.PayCheck;
 
 import java.util.*;
 
@@ -13,7 +14,7 @@ public class PayrollDatabase {
 
     private Map<Integer, Employee> employees = new HashMap<Integer, Employee>();
     public Map<Integer, Employee> unionMembers = new HashMap<Integer, Employee>();
-
+    public Map<Integer, PayCheck> globalPaydaysList = new HashMap<Integer, PayCheck>();
 
     public Employee getEmployee(int employeeId) {
         return employees.get(employeeId);
@@ -35,7 +36,12 @@ public class PayrollDatabase {
     public Employee getUnionMember(int memberId) {
         return unionMembers.get(memberId);
     }
-
+    public PayCheck getPaycheck(int memberId){
+    	return globalPaydaysList.get(memberId);
+    }
+    public void addPayCheck(int memberId, PayCheck paycheck) {
+    	globalPaydaysList.put(memberId, paycheck);
+    }
     public void addUnionMember(int memberId, Employee employee) {
         unionMembers.put(memberId, employee);
     }
