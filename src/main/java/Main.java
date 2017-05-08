@@ -52,7 +52,7 @@ public class Main {
 			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
 			PayCheck paycheck = EmployeeController.getPayCheck(Integer.parseInt(request.params(":id")));
 			view.put("employee", employee);
-			if(paycheck!=null)
+			
 			view.put("paycheck", paycheck);
 		      return new ModelAndView(view, "Employee/showEmployee.vtl");
 		    }, new VelocityTemplateEngine());
