@@ -1,8 +1,10 @@
 package payrollcasestudy.entities.paymentclassifications;
 
+import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
 import payrollcasestudy.entities.TimeCard;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +21,14 @@ public class HourlyPaymentClassification extends PaymentClassification{
 
     public double getHourlyRate() {
         return hourlyRate;
+    }
+    
+    public ArrayList<TimeCard> getTimeCards(){
+    	ArrayList<TimeCard> listOfTimeCards = new ArrayList<>();
+    	for(TimeCard timeCard : timeCardMap.values()){
+    		listOfTimeCards.add(timeCard);
+		}
+    	return listOfTimeCards;
     }
 
     public TimeCard getTimeCard(Calendar date) {

@@ -10,6 +10,8 @@ import java.util.Set;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
+import payrollcasestudy.entities.TimeCard;
+import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
 import payrollcasestudy.transactions.PaydayTransaction;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddCommissionedEmployeeTransaction;
@@ -80,6 +82,12 @@ public class EmployeeController {
 		
 		
 		return "Horas agregadas Satisfactoriamente";
+	}
+
+	public static ArrayList<TimeCard> getTimeCards(int i) {
+		HourlyPaymentClassification classification = (HourlyPaymentClassification) PayrollDatabase.globalPayrollDatabase.getEmployee(i).getPaymentClassification();
+		ArrayList<TimeCard> timecards = classification.getTimeCards();	
+		return timecards;
 	}
 
 }

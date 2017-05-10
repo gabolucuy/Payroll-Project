@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import controller.EmployeeController;
 import controller.PayDayController;
@@ -11,6 +12,7 @@ import controller.PayrollController;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
+import payrollcasestudy.entities.TimeCard;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -63,6 +65,9 @@ public class Main {
 			
 			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
 			view.put("employee", employee);
+			ArrayList<TimeCard> timeCards=new ArrayList<>();
+			timeCards= EmployeeController.getTimeCards(Integer.parseInt(request.params(":id")));
+			view.put("timeCards", timeCards);
 		      return new ModelAndView(view, "Employee/addHoursForm.vtl");
 		    }, new VelocityTemplateEngine());
 		//Registros

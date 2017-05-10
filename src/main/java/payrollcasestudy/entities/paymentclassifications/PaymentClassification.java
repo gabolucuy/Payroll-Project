@@ -1,6 +1,7 @@
 package payrollcasestudy.entities.paymentclassifications;
 
 import payrollcasestudy.entities.PayCheck;
+import payrollcasestudy.entities.TimeCard;
 
 import java.util.Calendar;
 
@@ -12,4 +13,5 @@ public abstract class PaymentClassification {
         return date.equals(payPeriodEnd) || date.equals(payPeriodStart) ||
                 (date.after(payPeriodStart) && date.before(payPeriodEnd));
     }
+	
 }

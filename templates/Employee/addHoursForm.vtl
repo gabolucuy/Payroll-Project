@@ -42,17 +42,29 @@
      	
 	      <form method = 'post' action='/addHourstoEmployee'> 
 	      <label>Cantidad de horas:</label> 
-			 <input type='number' name='hours' required> 
-	       <input name = 'day' type='hidden'  id="day"  />
-	       <input name = 'month' type='hidden' id="month" />
-	       <input name = 'year' type='hidden' id="year"  /> 
+			<input type='number' name='hours' required/> </br>			
+			<label>Fecha:</label> 
+	       <input name = 'day' id="day"  /> - <input name = 'month'  id="month" /> - <input name = 'year'  id="year"  /> 
+	       <input type='submit' value=' Registrar horas' /> </br>
 	       <input name = 'employeeId' type='hidden' value='$employee.getEmployeeId().toString()'  />
-	       <input type='submit' value=' Registrar horas' /> 
+	       
 	       
 	      </form>
-	      <form action='/'> 
+	      <form action='/addHours'> 
 	       <input type='submit' value=' Atras' /> 
 	      </form>
+	      <table 	class="table table-striped">
+    	<thead>
+    	 <th>Horas</th>
+    	</thead>
+    	<tbody>
+        	#foreach ($timeCard in $timeCards)
+        	<tr>
+			    <td>$timeCard.getHours().toString()</td>	    			
+			</tr>    
+			#end
+		</tbody>
+		</table>
      	</div>
      	<script>
 			var f=new Date();			
