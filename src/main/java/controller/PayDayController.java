@@ -23,7 +23,7 @@ public class PayDayController {
 		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
-		addTimeCardsTransactionsToHourlyEmployees(payDate);
+		//addTimeCardsTransactionsToHourlyEmployees(payDate);
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute();
 		return "Se pago a todos los empleados";
