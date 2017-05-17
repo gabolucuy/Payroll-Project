@@ -41,11 +41,21 @@
 	    	 </p>
      	
 	      <form method = 'post' action='/addHourstoEmployee'> 
-	      <label>Cantidad de horas:</label> 
+	       <label>Cantidad de horas:</label> 
 			<input type='number' name='hours' required/> </br>			
 			<label>Fecha:</label> 
 	       <input name = 'day' id="day"  /> - <input name = 'month'  id="month" /> - <input name = 'year'  id="year"  /> 
 	       <input type='submit' value=' Registrar horas' /> </br>
+	       <input name = 'day' type='number'  id="day"  />
+	       </br> 
+			</br> 
+	       <label>Mes</label>
+	       <input name = 'month' type='number' id="month" />
+	       </br> 
+			</br> 
+	       <label>Año:</label>
+	       <input name = 'year' type='number' id="year"  /> 
+	       </br> 
 	       <input name = 'employeeId' type='hidden' value='$employee.getEmployeeId().toString()'  />
 	       
 	       
@@ -72,7 +82,7 @@
 			var month=  f.getMonth();
 			var year = f.getFullYear();
 			document.getElementById("day").value = day;
-			document.getElementById("month").value = month;
+			document.getElementById("month").value = month+1;
 			document.getElementById("year").value = year;
 		</script>
 		 </body>

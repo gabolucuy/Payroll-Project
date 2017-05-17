@@ -74,6 +74,8 @@ public class EmployeeController {
 		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
 		int id = Integer.parseInt(employeeId);
+		Employee employee  = PayrollDatabase.globalPayrollDatabase.getEmployee(id);
+		employee.setHoursOfWork(hours1);
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		Transaction addTimeCard = new AddTimeCardTransaction(payDate, hours1, id);
          addTimeCard.execute();

@@ -14,6 +14,7 @@ public class Employee {
     private int employeeId;
     private String name;
     private String address;
+    private double hoursOfWork;
     private UnionAffiliation unionAffiliation = UnionAffiliation.NO_AFFILIATION;
 
     public Employee(int employeeId, String name, String address) {
@@ -60,6 +61,11 @@ public class Employee {
         return address;
     }
     
+    public void setHoursOfWork(double hours){
+    	this.hoursOfWork=hours;
+    }
+    
+   
     public int getEmployeeId(){
     	return employeeId;
     }
@@ -94,6 +100,10 @@ public class Employee {
 		// TODO Auto-generated method stub
 		this.unionAffiliation = unionAffiliation;
 	}
+	 public double getHoursOfWork(){
+	    	return hoursOfWork;
+	    }
+	
 	
 
 
