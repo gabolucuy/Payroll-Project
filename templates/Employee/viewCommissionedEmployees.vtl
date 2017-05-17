@@ -1,0 +1,60 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+		body{
+		 
+			background-color:#008080;
+			margin: 20px;
+		 }
+		
+		input[type=submit]{ 
+		      width: 15%; 
+		      background-color: #33C5F8; 
+		      color: white; 
+		      padding: 5px 11px; 
+		      margin: 8px 0; 
+		      border: none; 
+		      border-radius: 2px; 
+		      cursor: pointer;} 
+		input[type=submit]:hover{
+		    background-color: #33C5F8;}
+		div{
+		margin-right: auto; 
+		margin-left: auto;
+	    border-radius: 5px;
+	    background-color: #f2f2f2;
+	    padding: 20px;
+	       width: 50%;}
+	    </style>
+	  <title>Empleados registrados</title>
+	  </head>
+		 <body>
+		  <div>
+    <h1>Lista de empleados por comision</h1>
+    <hr class="intro-divider">
+    <table 	class="table table-striped">
+    	<thead>
+    	 <th>CI</th>
+    	 <th>Nombre</th>
+    	 <th>Direccion</th>
+    	 <th></th>
+    	 
+    	</thead>
+    	<tbody>
+        	#foreach ($employee in $employees)
+        	<tr>
+			    <td>$employee.getEmployeeId().toString()</td>
+			    <td>$employee.getName().toString()</td>
+			    <td>$employee.getAddress().toString()</td> 	
+			    <td><a href="/addSales/$employee.getEmployeeId().toString()"> Agregar ventas</a></td> 			
+			</tr>    
+			#end
+		</tbody>
+		</table>
+     	<form action='/'> 
+	       <input type='submit' value=' Atras' /> 
+	      </form>
+     	</div>
+		 </body>
+		 </html>

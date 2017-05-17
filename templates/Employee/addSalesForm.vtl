@@ -1,0 +1,78 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+		<style>
+		body{
+		 
+			background-color:#008080;
+			margin: 20px;
+		 }
+		
+		input[type=submit]{ 
+		      width: 20%; 
+		      background-color: #33C5F8; 
+		      color: white; 
+		      padding: 5px 11px; 
+		      margin: 8px 0; 
+		      border: none; 
+		      border-radius: 2px; 
+		      cursor: pointer;} 
+		input[type=submit]:hover{
+		    background-color: #33C5F8;}
+		div{
+		margin-right: auto; 
+		margin-left: auto;
+	    border-radius: 5px;
+	    background-color: #f2f2f2;
+	    padding: 20px;
+	       width: 50%;}
+	    </style>
+	  	<title>Empleado</title>
+	 </head>
+	 <body>
+		<div>
+			<h1>Detalle de empleado</h1>
+	    	 <p>
+	    	 <b>CI :</b> $employee.getEmployeeId().toString() </br>
+	    	 <b>Nombre :</b> $employee.getName().toString()</br>
+	    	 <b>Direccion :</b> $employee.getAddress().toString()</br>
+	    	 
+	    	 </p>
+     	
+	      <form method = 'post' action='/addSalestoEmployee'> 
+	       <label>Cantidad en venta:</label> 
+			<input type='number' name='sale' id='sale' required/> </br>			
+			<label>Fecha:</label> 
+	       <input name = 'day' id="day"  /> - <input name = 'month'  id="month" /> - <input name = 'year'  id="year"  /> 
+	       <input name = 'employeeId' type='hidden' value='$employee.getEmployeeId().toString()'  />
+	       
+	       <input type='submit' value=' Registrar Venta' /> </br>
+	      </form>
+	      <form action='/addSales'> 
+	       <input type='submit' value=' Atras' /> 
+	      </form>
+	      <table 	class="table table-striped">
+    	<thead>
+    	 <th>Ventas</th>
+    	</thead>
+    	<tbody>
+        	#foreach ($receipt in $receipts)
+        	<tr>
+			    <td>$receipt.getAmount().toString()</td>	    			
+			</tr>    
+			#end
+		</tbody>
+		</table>
+     	</div>
+     	<script>
+			var f=new Date();			
+			var day=f.getDate();
+			var month=  f.getMonth();
+			var year = f.getFullYear();
+			document.getElementById("day").value = day;
+			document.getElementById("month").value = month+1;
+			document.getElementById("year").value = year;
+		</script>
+		 </body>
+		 </html> 

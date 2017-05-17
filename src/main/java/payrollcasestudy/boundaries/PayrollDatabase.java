@@ -2,6 +2,7 @@ package payrollcasestudy.boundaries;
 
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
+import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
 
 import static org.hamcrest.Matchers.instanceOf;
@@ -69,6 +70,16 @@ public class PayrollDatabase {
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
     	for(Employee employee : employees.values()){
     		if(employee.getPaymentClassification() instanceof  HourlyPaymentClassification)
+    		listOfEmployees.add(employee);
+		}
+    	return listOfEmployees;
+		
+	}
+	
+	public ArrayList<Employee> getAllCommissionedEmployees() {
+		ArrayList<Employee> listOfEmployees = new ArrayList<>();
+    	for(Employee employee : employees.values()){
+    		if(employee.getPaymentClassification() instanceof  CommissionedPaymentClassification)
     		listOfEmployees.add(employee);
 		}
     	return listOfEmployees;

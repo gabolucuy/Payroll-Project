@@ -13,6 +13,7 @@ import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
 import payrollcasestudy.entities.TimeCard;
+import payrollcasestudy.entities.SalesReceipt;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -39,6 +40,7 @@ public class Main {
 			        new ModelAndView(new HashMap(), "PapeletasDePago/generar_papeletas.vtl")
 			    );
 			});
+		
 		get("/registrar_Nuevo_Empleado", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
 			        new ModelAndView(new HashMap(), "home.vtl")
@@ -70,6 +72,16 @@ public class Main {
 			view.put("timeCards", timeCards);
 		      return new ModelAndView(view, "Employee/addHoursForm.vtl");
 		    }, new VelocityTemplateEngine());
+		get("/addSales/:id", (request, response) -> {
+			
+			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
+			view.put("employee", employee);
+			ArrayList<SalesReceipt> receipts=new ArrayList<>();
+			receipts= EmployeeController.getReceipts(Integer.parseInt(request.params(":id")));
+			view.put("receipts", receipts);
+		      return new ModelAndView(view, "Employee/addSalesForm.vtl");
+		    }, new VelocityTemplateEngine());
+		
 		//Registros
 		get("/newEmployee", (req, res) -> {
 		    return new VelocityTemplateEngine().render(
@@ -83,11 +95,19 @@ public class Main {
 		      return new ModelAndView(view, "Employee/viewHourlyEmployees.vtl");
 		    }, new VelocityTemplateEngine());
 		
+		get("/addSales", (req, res) -> {
+			ArrayList<Employee> employees=new ArrayList<>();
+			employees =EmployeeController.getListOfAllCommissionedEmployees();
+			view.put("employees", employees);
+		      return new ModelAndView(view, "Employee/viewCommissionedEmployees.vtl");
+		    }, new VelocityTemplateEngine());
+		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
 		post("/pagarATodosLosEmpleados",(request, response) ->PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
 		post("/addHourstoEmployee",(request, response) ->EmployeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+		post("/addSalestoEmployee",(request, response) ->EmployeeController.addSalesToEmployee(request.queryParams("employeeId"),request.queryParams("sale"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
 		
 		}
 	

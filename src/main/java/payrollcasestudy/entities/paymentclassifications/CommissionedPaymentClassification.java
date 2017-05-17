@@ -2,7 +2,9 @@ package payrollcasestudy.entities.paymentclassifications;
 
 import payrollcasestudy.entities.PayCheck;
 import payrollcasestudy.entities.SalesReceipt;
+import payrollcasestudy.entities.TimeCard;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,4 +45,12 @@ public class CommissionedPaymentClassification extends PaymentClassification {
         }
         return totalPay;
     }
+
+	public ArrayList<SalesReceipt> getReceipts() {
+		ArrayList<SalesReceipt> listOfReceipts = new ArrayList<>();
+    	for(SalesReceipt receipts : salesReceiptMap.values()){
+    		listOfReceipts.add(receipts);
+		}
+    	return listOfReceipts;
+	}
 }

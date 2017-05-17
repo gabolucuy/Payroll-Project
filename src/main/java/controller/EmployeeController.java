@@ -10,13 +10,16 @@ import java.util.Set;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
+import payrollcasestudy.entities.SalesReceipt;
 import payrollcasestudy.entities.TimeCard;
+import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
 import payrollcasestudy.transactions.PaydayTransaction;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddCommissionedEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddSalariedEmployeeTransaction;
+import payrollcasestudy.transactions.add.AddSalesReceiptTransaction;
 import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class EmployeeController {
@@ -68,6 +71,13 @@ public class EmployeeController {
 		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllHourlyEmployees();
 		return listOfEmployees;
 	}
+	
+	public static ArrayList<Employee> getListOfAllCommissionedEmployees(){
+		ArrayList<Employee> listOfEmployees = new ArrayList<>();
+		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllCommissionedEmployees();
+		return listOfEmployees;
+	}
+	
 	public static String addHoursToEmployee(String employeeId,String hours,String year,String month,String day){
 		double hours1 = Double.parseDouble(hours);
 		int day1=Integer.parseInt(day); 
@@ -81,15 +91,34 @@ public class EmployeeController {
          addTimeCard.execute();
 		
 		
-		
-		
 		return "Horas agregadas Satisfactoriamente";
+	}
+	
+	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day){
+		double sale1 = Double.parseDouble(sale);
+		int day1=Integer.parseInt(day); 
+		int month1=Integer.parseInt(month)-1; 
+		int year1=Integer.parseInt(year); 
+		int id = Integer.parseInt(employeeId);
+		
+		Calendar payDate = new GregorianCalendar(year1, month1, day1);
+		Transaction addTimeCard = new AddSalesReceiptTransaction(payDate, sale1, id);
+        addTimeCard.execute();
+			
+		
+		return "Venta agregada Satisfactoriamente";
 	}
 
 	public static ArrayList<TimeCard> getTimeCards(int i) {
 		HourlyPaymentClassification classification = (HourlyPaymentClassification) PayrollDatabase.globalPayrollDatabase.getEmployee(i).getPaymentClassification();
 		ArrayList<TimeCard> timecards = classification.getTimeCards();	
 		return timecards;
+	}
+	
+	public static ArrayList<SalesReceipt> getReceipts(int i) {
+		CommissionedPaymentClassification classification = (CommissionedPaymentClassification) PayrollDatabase.globalPayrollDatabase.getEmployee(i).getPaymentClassification();
+		ArrayList<SalesReceipt> receipts = classification.getReceipts();	
+		return receipts;
 	}
 
 }
