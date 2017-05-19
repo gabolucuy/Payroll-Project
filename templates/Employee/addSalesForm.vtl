@@ -54,12 +54,14 @@
 	      </form>
 	      <table 	class="table table-striped">
     	<thead>
-    	 <th>Ventas</th>
+    		<th>Fecha</th>
+    		<th>Monto</th>
     	</thead>
     	<tbody>
         	#foreach ($receipt in $receipts)
         	<tr>
-			    <td>$receipt.getAmount().toString()</td>	    			
+        		<td>$receipt.dateInFormatString().toString()</td>	
+			    <td>$receipt.getAmount().toString()</td>
 			</tr>    
 			#end
 		</tbody>

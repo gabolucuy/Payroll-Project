@@ -54,12 +54,14 @@
 	      </form>
 	      <table 	class="table table-striped">
     	<thead>
+    	 <th>Fecha</th>
     	 <th>Horas</th>
     	</thead>
     	<tbody>
         	#foreach ($timeCard in $timeCards)
         	<tr>
-			    <td>$timeCard.getHours().toString()</td>	    			
+        		<td>$timeCard.dateInFormatString().toString()</td>	
+			    <td>$timeCard.getHours().toString()</td>
 			</tr>    
 			#end
 		</tbody>

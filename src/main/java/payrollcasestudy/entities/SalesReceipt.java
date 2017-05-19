@@ -18,4 +18,10 @@ public class SalesReceipt {
     public double getAmount() {
         return amount;
     }
+    public String dateInFormatString(){
+    	int dia = date.get(Calendar.DAY_OF_MONTH);
+    	int mes = date.get(Calendar.MONTH) + 1;
+        int año = date.get(Calendar.YEAR);        
+        return String.valueOf(dia)+"/"+String.valueOf(mes)+"/"+String.valueOf(año);
+    }
 }
