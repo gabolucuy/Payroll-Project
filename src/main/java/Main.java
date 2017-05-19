@@ -54,13 +54,11 @@ public class Main {
 		      return new ModelAndView(view, "Employee/showEmployees.vtl");
 		    }, new VelocityTemplateEngine());
 		get("/ver_empleado/:id", (request, response) -> {
-			
+			ArrayList<PayCheck> paychecks=new ArrayList<>();
+			paychecks =EmployeeController.getAllPaychecksOfEmployee(Integer.parseInt(request.params(":id")));
 			Employee employee = EmployeeController.getEmployee(Integer.parseInt(request.params(":id")));
-			PayCheck paycheck = EmployeeController.getPayCheck(Integer.parseInt(request.params(":id")));
-	
 			view.put("employee", employee);
-			
-			view.put("paycheck", paycheck);
+			view.put("paychecks", paychecks);
 		      return new ModelAndView(view, "Employee/showEmployee.vtl");
 		    }, new VelocityTemplateEngine());
 		get("/addHours/:id", (request, response) -> {

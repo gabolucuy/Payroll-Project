@@ -16,10 +16,9 @@ import java.util.*;
  */
 public class PayrollDatabase {
     public static PayrollDatabase globalPayrollDatabase = new PayrollDatabase();
-
     private Map<Integer, Employee> employees = new HashMap<Integer, Employee>();
     public Map<Integer, Employee> unionMembers = new HashMap<Integer, Employee>();
-    public Map<Integer, PayCheck> globalPaydaysList = new HashMap<Integer, PayCheck>();
+    public Map<Integer, PayCheck> paychecks = new HashMap<Integer, PayCheck>();
 
     public Employee getEmployee(int employeeId) {
         return employees.get(employeeId);
@@ -41,11 +40,8 @@ public class PayrollDatabase {
     public Employee getUnionMember(int memberId) {
         return unionMembers.get(memberId);
     }
-    public PayCheck getPaycheck(int memberId){
-    	return globalPaydaysList.get(memberId);
-    }
     public void addPayCheck(int memberId, PayCheck paycheck) {
-    	globalPaydaysList.put(memberId, paycheck);
+    	paychecks.put(memberId, paycheck);
     }
     public void addUnionMember(int memberId, Employee employee) {
         unionMembers.put(memberId, employee);
@@ -58,6 +54,9 @@ public class PayrollDatabase {
     public Set<Integer> getAllEmployeeIds() {
         return employees.keySet();
     }
+    public PayCheck getPaycheck(int memberId){
+    	return paychecks.get(memberId);
+    }
     public ArrayList<Employee> getAllEmployees(){
     	ArrayList<Employee> listOfEmployees = new ArrayList<>();
     	for(Employee employee : employees.values()){
@@ -65,7 +64,16 @@ public class PayrollDatabase {
 		}
     	return listOfEmployees;
     }
-
+    
+    public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId){
+    	ArrayList<PayCheck> listOfEmployeePaychecks = new ArrayList<>();
+    	for(PayCheck paycheck : paychecks.values()){
+    		if(paycheck.getMemberId()==memberId)
+    			listOfEmployeePaychecks.add(paycheck);
+		}
+    	return listOfEmployeePaychecks;
+    }
+    
 	public ArrayList<Employee> getAllHourlyEmployees() {
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
     	for(Employee employee : employees.values()){

@@ -56,7 +56,13 @@ public class EmployeeController {
 		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllEmployees();
 		return listOfEmployees;
 	}
-
+	
+	public static ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId){
+		ArrayList<PayCheck> listOfEmployeePayChecks = new ArrayList<>();
+		listOfEmployeePayChecks = PayrollDatabase.globalPayrollDatabase.getAllPaychecksOfEmployee(memberId);
+		return listOfEmployeePayChecks;
+	}
+	
 	public static Employee getEmployee(int i) {
 		Employee employee  = PayrollDatabase.globalPayrollDatabase.getEmployee(i);
 		return employee;
@@ -102,8 +108,8 @@ public class EmployeeController {
 		int id = Integer.parseInt(employeeId);
 		
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
-		Transaction addTimeCard = new AddSalesReceiptTransaction(payDate, sale1, id);
-        addTimeCard.execute();
+		Transaction addSalesReceipt = new AddSalesReceiptTransaction(payDate, sale1, id);
+        addSalesReceipt.execute();
 			
 		
 		return "Venta agregada Satisfactoriamente";

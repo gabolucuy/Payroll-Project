@@ -10,13 +10,19 @@ public class PayCheck {
     private double netPay;
     private Calendar payPeriodStart;
     private Calendar payDate;
+    private int memberId;
     private Map<String, String> fields = new HashMap<String, String>();
 
     public PayCheck(Calendar payPeriodStart, Calendar payPeriodEnd) {
         this.payPeriodStart = payPeriodStart;
         this.payDate = payPeriodEnd;
     }
-
+    public void setMemberId(int memberId){
+    	this.memberId=memberId;
+    }
+    public int getMemberId(){
+    	return memberId;
+    }
     public Calendar getPayPeriodEnd() {
         return this.payDate;
     }
@@ -56,7 +62,16 @@ public class PayCheck {
     public Calendar getPayPeriodStart() {
         return payPeriodStart;
     }
+    
     public void setStartDay(Calendar startDate){
     	this.payPeriodStart=startDate;
     }
+    
+    public String returnPayDate(){   	
+    	int dia = payDate.get(Calendar.DAY_OF_MONTH);
+    	int mes = payDate.get(Calendar.MONTH) + 1;
+        int año = payDate.get(Calendar.YEAR);        
+        return String.valueOf(dia)+"/"+String.valueOf(mes)+"/"+String.valueOf(año);
+    }
+    
 }
