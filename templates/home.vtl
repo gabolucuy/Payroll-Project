@@ -1,5 +1,7 @@
  <html>
  <head> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
 	<style> 
 	  input[type=number], select { 
 	  	width: 100%; 
@@ -18,24 +20,15 @@
 		border: 1px solid #ccc; 
 				      border-radius: 4px; 
 					      box-sizing: border-box;} 
-					  input[type=submit]{ 
-					      width: 100%; 
-					      background-color: #4CAF50; 
-					      color: white; 
-					      padding: 14px 20px; 
-					      margin: 8px 0; 
-					      border: none; 
-					      border-radius: 4px; 
-					      cursor: pointer;} 
-					  input[type=submit]:hover{ 
-					      background-color: #45a049;} 
+					 
+					   
 					  div{ 
 					  	  	margin-right: auto; 
 					  	  	margin-left: auto;
 					      	border-radius: 5px; 
 					      	background-color: #f2f2f2; 
 					      	padding: 20px; 
-					        width: 50%;} 
+					        width: 70%;} 
 					  body{
 					  		background-color:#008080
 					  }
@@ -43,27 +36,38 @@
 						    display: block;
 						    margin: auto;
 						}
+				
 				  </style> 
 				  <title>Inicio</title>
 				 </head>
 				   <body> 
 				   <div> 
 				   		<img src="http://www.uninorte.edu.co/documents/10174/4864976/poliza.png" alt="Paris" width="400" height="300">
-				   		<form action='/newEmployee'> 
-			       			<input type='submit' value='Crear empleado nuevo' /> 
-			      		</form>  
-			      		<form action='/ver_lista_empleados'> 
-			       			<input type='submit' value='Ver Empleados' /> 
-			      		</form> 
-			      		<form action='/generar_papeletas'> 
-			       			<input type='submit' value='Generear Pagos' /> 
-			      		</form>  
-			      		<form action='/addHours'> 
-			       			<input type='submit' value='Agregar horas trabajadas a empleados' /> 
-			      		</form>  
-			      		<form action='/addSales'> 
-			       			<input type='submit' value='Agregar ventas a empleados  ' /> 
-			      		</form> 
-				   </div> 
+				   		</br>
+				   		</br>
+				   		<table class="table">
+				   			<tr><td>
+					   			<form action='/newEmployee'> 
+						       		<input type='submit' class="btn btn-success btn btn-primary btn-lg btn-block" value='Crear empleado nuevo' /> 
+						      	</form>  
+						   		<form action='/ver_lista_empleados'> 
+						   			<input type='submit'  class="btn btn-success btn btn-primary btn-lg btn-block" value='Ver Empleados' /> 
+						   		</form> 
+				   			</td>
+						   	<td>
+						   		<form action='/addHours'> 
+						   			<input type='submit' class="btn btn-info btn btn-primary btn-lg btn-block" value='Agregar horas trabajadas a empleados' /> 
+						   		</form>  
+						    	<form action='/addSales'> 
+						    		<input type='submit' class="btn btn-info btn btn-primary btn-lg btn-block" value='Agregar ventas a empleados  ' /> 
+						      	</form>
+						   	</td>
+						   	<td>
+							   	<form action='/generar_papeletas'> 
+						   			<input type='submit' class="btn btn-primary btn btn-primary btn-lg btn-block" value='Generear Pagos' /> 
+						   		</form> 	
+						   	</td>
+				   		</table> 
+				   		
 				   </body> 
 				   </html> 
