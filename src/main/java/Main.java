@@ -100,12 +100,52 @@ public class Main {
 		      return new ModelAndView(view, "Employee/viewCommissionedEmployees.vtl");
 		    }, new VelocityTemplateEngine());
 		
-		post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
-		post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
-		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
-		post("/pagarATodosLosEmpleados",(request, response) ->PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
-		post("/addHourstoEmployee",(request, response) ->EmployeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
-		post("/addSalestoEmployee",(request, response) ->EmployeeController.addSalesToEmployee(request.queryParams("employeeId"),request.queryParams("sale"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+		post("/registrarEmpleadoSueldoFijo", (request, response) -> {
+			EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"));
+			 return new VelocityTemplateEngine().render(
+				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
+				    );
+				});
+		post("/registrarEmpleadoPorHoras", (request, response) -> {
+			EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"));
+			 return new VelocityTemplateEngine().render(
+				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
+				    );
+				});
+		
+		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> {
+			EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision"));
+			 return new VelocityTemplateEngine().render(
+				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
+				    );
+				});
+		
+		post("/pagarATodosLosEmpleados", (request, response) -> {
+			PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
+			return new VelocityTemplateEngine().render(
+				        new ModelAndView(new HashMap(), "Messages/paymentsMadeSuccessfully.vtl")
+				    );
+				});
+		
+		post("/addHourstoEmployee", (request, response) -> {
+			EmployeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
+			return new VelocityTemplateEngine().render(
+				        new ModelAndView(new HashMap(), "Messages/hoursSuccessfullyAdded.vtl")
+				    );
+				});
+		
+		post("/addSalestoEmployee", (request, response) -> {
+			EmployeeController.addSalesToEmployee(request.queryParams("employeeId"),request.queryParams("sale"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
+			return new VelocityTemplateEngine().render(
+				        new ModelAndView(new HashMap(), "Messages/satisfactoryAggregateSalesAmount.vtl")
+				    );
+				});
+		//post("/registrarEmpleadoSueldoFijo", (request, response) -> EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
+		//post("/registrarEmpleadoPorHoras", (request, response) -> EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
+		//post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
+		//post("/pagarATodosLosEmpleados",(request, response) ->PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+		//post("/addHourstoEmployee",(request, response) ->EmployeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+		//post("/addSalestoEmployee",(request, response) ->EmployeeController.addSalesToEmployee(request.queryParams("employeeId"),request.queryParams("sale"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
 		
 		}
 	
