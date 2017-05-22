@@ -102,17 +102,16 @@ public class Main {
 		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> {
 			EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"));
-			 return new VelocityTemplateEngine().render(
-				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
-				    );
-				});
+			String name="";
+			view.put("name",request.queryParams("nombre_empleado")); 
+			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
+	    }, new VelocityTemplateEngine());
 		post("/registrarEmpleadoPorHoras", (request, response) -> {
 			EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"));
-			 return new VelocityTemplateEngine().render(
-				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
-				    );
-				});
-		
+			String ci="";
+			view.put("ci",request.queryParams("ci")); 
+			return new ModelAndView(view, "Messages/hourlyEmployeeCreated.vtl");
+	    }, new VelocityTemplateEngine());
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> {
 			EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision"));
 			 return new VelocityTemplateEngine().render(
@@ -128,11 +127,11 @@ public class Main {
 				});
 		
 		post("/addHourstoEmployee", (request, response) -> {
+			String employeeId="";
 			EmployeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
-			return new VelocityTemplateEngine().render(
-				        new ModelAndView(new HashMap(), "Messages/hoursSuccessfullyAdded.vtl")
-				    );
-				});
+			view.put("employeeId",request.queryParams("employeeId")); 
+			return new ModelAndView(view, "Messages/hoursSuccessfullyAdded.vtl");
+	    }, new VelocityTemplateEngine());
 		
 		post("/addSalestoEmployee", (request, response) -> {
 			EmployeeController.addSalesToEmployee(request.queryParams("employeeId"),request.queryParams("sale"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
