@@ -110,10 +110,8 @@ public class Main {
 	    }, new VelocityTemplateEngine());
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> {
 			view.put("message",EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
-			 return new VelocityTemplateEngine().render(
-				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
-				    );
-				});
+			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
+	    }, new VelocityTemplateEngine());
 		
 		post("/pagarATodosLosEmpleados", (request, response) -> {
 			PayDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
