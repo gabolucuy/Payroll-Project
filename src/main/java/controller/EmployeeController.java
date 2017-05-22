@@ -30,7 +30,7 @@ public class EmployeeController {
 		 Transaction addEmployeeTransaction =
 	                new AddSalariedEmployeeTransaction(ci, nombre_empleado, direccion_empleado,amountt);
 	        addEmployeeTransaction.execute();
-	        return "Empleado creado satisfactoriamente!";
+	        return "Empleado a sueldo fijo creado satisfactoriamente!";
 	}
 	
 	public static String registrar_empleado_por_horas(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
@@ -49,7 +49,7 @@ public class EmployeeController {
 	    Transaction addEmployeeTransaction =
 	            new AddCommissionedEmployeeTransaction(ci, nombre_empleado, direccion_empleado, amountt , comisionn);
 	    addEmployeeTransaction.execute();
-	    return "Empleado por hora creado satisfactoriamente!";
+	    return "Empleado por comision creado satisfactoriamente!";
 	}
 	public static ArrayList<Employee> getListOfAllEmployees(){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();

@@ -101,19 +101,15 @@ public class Main {
 		    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> {
-			EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"));
-			String name="";
-			view.put("name",request.queryParams("nombre_empleado")); 
+			view.put("message",EmployeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"))); 
 			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
 	    }, new VelocityTemplateEngine());
 		post("/registrarEmpleadoPorHoras", (request, response) -> {
-			EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"));
-			String ci="";
-			view.put("ci",request.queryParams("ci")); 
-			return new ModelAndView(view, "Messages/hourlyEmployeeCreated.vtl");
+			view.put("message",EmployeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
+			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
 	    }, new VelocityTemplateEngine());
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> {
-			EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision"));
+			view.put("message",EmployeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
 			 return new VelocityTemplateEngine().render(
 				        new ModelAndView(new HashMap(), "Messages/employeeCreatedSuccessfully.vtl")
 				    );
