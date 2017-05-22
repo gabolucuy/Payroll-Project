@@ -1,5 +1,6 @@
 package payrollcasestudy.transactions.add;
 
+import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.SalariedClassification;
 import payrollcasestudy.entities.paymentschedule.MonthlyPaymentSchedule;
@@ -23,4 +24,6 @@ public class AddSalariedEmployeeTransaction extends AddEmployeeTransaction{
     protected PaymentClassification getPaymentClassification() {
         return new SalariedClassification(salary);
     }
+
+	
 }

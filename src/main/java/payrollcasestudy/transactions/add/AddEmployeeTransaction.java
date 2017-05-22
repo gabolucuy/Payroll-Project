@@ -1,6 +1,7 @@
 package payrollcasestudy.transactions.add;
 
 import payrollcasestudy.boundaries.PayrollDatabase;
+import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
 import payrollcasestudy.entities.paymentmethods.HoldMethod;
@@ -23,7 +24,7 @@ public abstract class AddEmployeeTransaction implements Transaction {
         this.employeeAddress = employeeAddress;
     }
 
-    public void execute() {
+    public void execute(Repository repository) {
         PaymentClassification paymentClassification = getPaymentClassification();
         PaymentSchedule paymentSchedule = getPaymentSchedule();
         PaymentMethod paymentMethod = new HoldMethod();
@@ -31,7 +32,7 @@ public abstract class AddEmployeeTransaction implements Transaction {
         employee.setPaymentClassification(paymentClassification);
         employee.setPaymentSchedule(paymentSchedule);
         employee.setPaymentMethod(paymentMethod);
-        PayrollDatabase.globalPayrollDatabase.addEmployee(employeeId, employee);
+        repository.addEmployee(employeeId, employee);
     }
 
     protected abstract PaymentSchedule getPaymentSchedule();

@@ -3,6 +3,8 @@ package payrollcasestudy.transactions.add;
 import org.junit.Rule;
 import org.junit.Test;
 import payrollcasestudy.DatabaseResource;
+import payrollcasestudy.boundaries.MemoryDB;
+import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
@@ -19,18 +21,16 @@ import static payrollcasestudy.TestConstants.*;
  * Listing 19-2
  */
 public class AddSalariedEmployeeTransactionTest {
-
-    @Rule
-    public DatabaseResource databaseResource = new DatabaseResource();
-
+	public Repository repository = new MemoryDB();
+   
     @Test
     public void testAddSalariedEmployee(){
         int employeeId = 1;
         Transaction addEmployeeTransaction =
                 new AddSalariedEmployeeTransaction(employeeId, "Bob", "Home", 1000.0);
-        addEmployeeTransaction.execute();
+        addEmployeeTransaction.execute(repository);
 
-        Employee employee = databaseResource.getInstance().getEmployee(employeeId);
+        Employee employee = repository.getEmployee(employeeId);
         assertThat(employee.getName(), is("Bob"));
 
         PaymentClassification paymentClassification = employee.getPaymentClassification();
