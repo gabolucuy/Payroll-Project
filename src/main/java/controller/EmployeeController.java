@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import payrollcasestudy.boundaries.PayrollDatabase;
+import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
 import payrollcasestudy.entities.SalesReceipt;
@@ -24,47 +25,47 @@ import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class EmployeeController {
 
-	public static String registrar_empleado_asalariado(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
+	public static String registrar_empleado_asalariado(String nombre_empleado,String direccion_empleado,String ci_employee, String amount, Repository repository) {
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		 Transaction addEmployeeTransaction =
 	                new AddSalariedEmployeeTransaction(ci, nombre_empleado, direccion_empleado,amountt);
-	        addEmployeeTransaction.execute();
+	        addEmployeeTransaction.execute(repository);
 	        return "Empleado a sueldo fijo creado satisfactoriamente!";
 	}
 	
-	public static String registrar_empleado_por_horas(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
+	public static String registrar_empleado_por_horas(String nombre_empleado,String direccion_empleado,String ci_employee, String amount, Repository repository) {
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		Transaction addEmployeeTransaction =
                 new AddHourlyEmployeeTransaction(ci, nombre_empleado,direccion_empleado , amountt);
-        addEmployeeTransaction.execute();
+        addEmployeeTransaction.execute(repository);
 	        return "Empleado por hora creado satisfactoriamente!";
 		
 	}
-	public static String registrar_empleado_asalariadoComision(String nombre_empleado,String direccion_empleado,String ci_employee, String amount,String comision){
+	public static String registrar_empleado_asalariadoComision(String nombre_empleado,String direccion_empleado,String ci_employee, String amount,String comision, Repository repository){
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		double comisionn= Double.parseDouble(comision);
 	    Transaction addEmployeeTransaction =
 	            new AddCommissionedEmployeeTransaction(ci, nombre_empleado, direccion_empleado, amountt , comisionn);
-	    addEmployeeTransaction.execute();
+	    addEmployeeTransaction.execute(repository);
 	    return "Empleado por comision creado satisfactoriamente!";
 	}
-	public static ArrayList<Employee> getListOfAllEmployees(){
+	public static ArrayList<Employee> getListOfAllEmployees(Repository repository){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
-		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllEmployees();
+		listOfEmployees = repository.getAllEmployees();
 		return listOfEmployees;
 	}
 	
-	public static ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId){
+	public static ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId, Repository repository){
 		ArrayList<PayCheck> listOfEmployeePayChecks = new ArrayList<>();
-		listOfEmployeePayChecks = PayrollDatabase.globalPayrollDatabase.getAllPaychecksOfEmployee(memberId);
+		listOfEmployeePayChecks = repository.getAllPaychecksOfEmployee(memberId);
 		return listOfEmployeePayChecks;
 	}
 	
-	public static Employee getEmployee(int i) {
-		Employee employee  = PayrollDatabase.globalPayrollDatabase.getEmployee(i);
+	public static Employee getEmployee(int i, Repository repository) {
+		Employee employee  = repository.getEmployee(i);
 		return employee;
 	}
 	public static PayCheck getPayCheck(int employeeId){
@@ -72,35 +73,35 @@ public class EmployeeController {
 		return paycheck;
 	}
 	
-	public static ArrayList<Employee> getListOfAllHourlyEmployees(){
+	public static ArrayList<Employee> getListOfAllHourlyEmployees(Repository repository){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
-		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllHourlyEmployees();
+		listOfEmployees = repository.getAllHourlyEmployees();
 		return listOfEmployees;
 	}
 	
-	public static ArrayList<Employee> getListOfAllCommissionedEmployees(){
+	public static ArrayList<Employee> getListOfAllCommissionedEmployees(Repository repository){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
-		listOfEmployees = PayrollDatabase.globalPayrollDatabase.getAllCommissionedEmployees();
+		listOfEmployees = repository.getAllCommissionedEmployees();
 		return listOfEmployees;
 	}
 	
-	public static String addHoursToEmployee(String employeeId,String hours,String year,String month,String day){
+	public static String addHoursToEmployee(String employeeId,String hours,String year,String month,String day, Repository repository){
 		double hours1 = Double.parseDouble(hours);
 		int day1=Integer.parseInt(day); 
 		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
 		int id = Integer.parseInt(employeeId);
-		Employee employee  = PayrollDatabase.globalPayrollDatabase.getEmployee(id);
+		Employee employee  = repository.getEmployee(id);
 		employee.setHoursOfWork(hours1);
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		Transaction addTimeCard = new AddTimeCardTransaction(payDate, hours1, id);
-         addTimeCard.execute();
+         addTimeCard.execute(repository);
 		
 		
 		return "Horas agregadas Satisfactoriamente";
 	}
 	
-	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day){
+	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day, Repository repository){
 		double sale1 = Double.parseDouble(sale);
 		int day1=Integer.parseInt(day); 
 		int month1=Integer.parseInt(month)-1; 
@@ -109,20 +110,20 @@ public class EmployeeController {
 		
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		Transaction addSalesReceipt = new AddSalesReceiptTransaction(payDate, sale1, id);
-        addSalesReceipt.execute();
+        addSalesReceipt.execute(repository);
 			
 		
 		return "Venta agregada Satisfactoriamente";
 	}
 
-	public static ArrayList<TimeCard> getTimeCards(int i) {
-		HourlyPaymentClassification classification = (HourlyPaymentClassification) PayrollDatabase.globalPayrollDatabase.getEmployee(i).getPaymentClassification();
+	public static ArrayList<TimeCard> getTimeCards(int i, Repository repository) {
+		HourlyPaymentClassification classification = (HourlyPaymentClassification) repository.getEmployee(i).getPaymentClassification();
 		ArrayList<TimeCard> timecards = classification.getTimeCards();	
 		return timecards;
 	}
 	
-	public static ArrayList<SalesReceipt> getReceipts(int i) {
-		CommissionedPaymentClassification classification = (CommissionedPaymentClassification) PayrollDatabase.globalPayrollDatabase.getEmployee(i).getPaymentClassification();
+	public static ArrayList<SalesReceipt> getReceipts(int i, Repository repository) {
+		CommissionedPaymentClassification classification = (CommissionedPaymentClassification) repository.getEmployee(i).getPaymentClassification();
 		ArrayList<SalesReceipt> receipts = classification.getReceipts();	
 		return receipts;
 	}
