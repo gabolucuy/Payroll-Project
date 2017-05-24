@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
@@ -18,8 +19,15 @@ import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class PayDayController {
 	//private static Map<Integer, PaydayTransaction> GlobalPaydaysList = new HashMap<Integer, PaydayTransaction>();
-	private static PayrollDatabase database = PayrollDatabase.globalPayrollDatabase;
-	public static String pagarATodosLosEmpleados(String year,String month,String day, Repository repository){
+	private static Repository repository =  new  MemoryDB();
+	
+	
+	public PayDayController(Repository repository) {
+		this.repository = repository;
+	}
+
+
+	public static String pagarATodosLosEmpleados(String year,String month,String day){
 		int day1=Integer.parseInt(day); 
 		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
