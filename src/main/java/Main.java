@@ -1,10 +1,5 @@
-
-
-
 import view.AsHtml;
 import view.ToShow;
-
-
 
 public class Main {
 	private static ToShow view = new AsHtml();
@@ -12,7 +7,7 @@ public class Main {
 	public static void main(String[] args) 
 		{
 			view.root();
-		
+
 			view.toGeneratePayrrolls();
 		
 			view.toSeeregistrationFormNewEmployee();

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
@@ -24,8 +25,14 @@ import payrollcasestudy.transactions.add.AddSalesReceiptTransaction;
 import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class EmployeeController {
+	private static Repository repository =  new  MemoryDB();
+	
 
-	public static String registrar_empleado_asalariado(String nombre_empleado,String direccion_empleado,String ci_employee, String amount, Repository repository) {
+	public EmployeeController(Repository repository) {
+		this.repository =repository;
+	}
+
+	public static String registrar_empleado_asalariado(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		 Transaction addEmployeeTransaction =
@@ -34,7 +41,7 @@ public class EmployeeController {
 	        return "Empleado a sueldo fijo creado satisfactoriamente!";
 	}
 	
-	public static String registrar_empleado_por_horas(String nombre_empleado,String direccion_empleado,String ci_employee, String amount, Repository repository) {
+	public static String registrar_empleado_por_horas(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		Transaction addEmployeeTransaction =
@@ -43,7 +50,7 @@ public class EmployeeController {
 	        return "Empleado por hora creado satisfactoriamente!";
 		
 	}
-	public static String registrar_empleado_asalariadoComision(String nombre_empleado,String direccion_empleado,String ci_employee, String amount,String comision, Repository repository){
+	public static String registrar_empleado_asalariadoComision(String nombre_empleado,String direccion_empleado,String ci_employee, String amount,String comision){
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		double comisionn= Double.parseDouble(comision);
@@ -52,19 +59,19 @@ public class EmployeeController {
 	    addEmployeeTransaction.execute(repository);
 	    return "Empleado por comision creado satisfactoriamente!";
 	}
-	public static ArrayList<Employee> getListOfAllEmployees(Repository repository){
+	public static ArrayList<Employee> getListOfAllEmployees(){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
 		listOfEmployees = repository.getAllEmployees();
 		return listOfEmployees;
 	}
 	
-	public static ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId, Repository repository){
+	public static ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId){
 		ArrayList<PayCheck> listOfEmployeePayChecks = new ArrayList<>();
 		listOfEmployeePayChecks = repository.getAllPaychecksOfEmployee(memberId);
 		return listOfEmployeePayChecks;
 	}
 	
-	public static Employee getEmployee(int i, Repository repository) {
+	public static Employee getEmployee(int i) {
 		Employee employee  = repository.getEmployee(i);
 		return employee;
 	}
@@ -73,19 +80,19 @@ public class EmployeeController {
 		return paycheck;
 	}
 	
-	public static ArrayList<Employee> getListOfAllHourlyEmployees(Repository repository){
+	public static ArrayList<Employee> getListOfAllHourlyEmployees(){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
 		listOfEmployees = repository.getAllHourlyEmployees();
 		return listOfEmployees;
 	}
 	
-	public static ArrayList<Employee> getListOfAllCommissionedEmployees(Repository repository){
+	public static ArrayList<Employee> getListOfAllCommissionedEmployees(){
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();
 		listOfEmployees = repository.getAllCommissionedEmployees();
 		return listOfEmployees;
 	}
 	
-	public static String addHoursToEmployee(String employeeId,String hours,String year,String month,String day, Repository repository){
+	public static String addHoursToEmployee(String employeeId,String hours,String year,String month,String day){
 		double hours1 = Double.parseDouble(hours);
 		int day1=Integer.parseInt(day); 
 		int month1=Integer.parseInt(month)-1; 
@@ -101,7 +108,7 @@ public class EmployeeController {
 		return "Horas agregadas Satisfactoriamente";
 	}
 	
-	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day, Repository repository){
+	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day){
 		double sale1 = Double.parseDouble(sale);
 		int day1=Integer.parseInt(day); 
 		int month1=Integer.parseInt(month)-1; 
@@ -116,13 +123,13 @@ public class EmployeeController {
 		return "Venta agregada Satisfactoriamente";
 	}
 
-	public static ArrayList<TimeCard> getTimeCards(int i, Repository repository) {
+	public static ArrayList<TimeCard> getTimeCards(int i) {
 		HourlyPaymentClassification classification = (HourlyPaymentClassification) repository.getEmployee(i).getPaymentClassification();
 		ArrayList<TimeCard> timecards = classification.getTimeCards();	
 		return timecards;
 	}
 	
-	public static ArrayList<SalesReceipt> getReceipts(int i, Repository repository) {
+	public static ArrayList<SalesReceipt> getReceipts(int i) {
 		CommissionedPaymentClassification classification = (CommissionedPaymentClassification) repository.getEmployee(i).getPaymentClassification();
 		ArrayList<SalesReceipt> receipts = classification.getReceipts();	
 		return receipts;
