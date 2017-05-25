@@ -9,6 +9,7 @@ import java.util.HashMap;
 import controller.EmployeeController;
 import controller.PayDayController;
 import payrollcasestudy.boundaries.MemoryDB;
+import payrollcasestudy.boundaries.MySqlDB;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
@@ -19,7 +20,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 
 public class AsHtml implements ToShow {
 	static VelocityTemplateEngine velocity;
-	private static Repository repository =  new  MemoryDB();
+	private static Repository repository =  new  MySqlDB();
 	static EmployeeController employeeController = new EmployeeController(repository);
 	static PayDayController payDayController = new PayDayController(repository);
 	
