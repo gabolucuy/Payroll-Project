@@ -41,7 +41,7 @@ public class MySqlDB implements Repository {
 			 statement1 = (Statement) connection.createStatement();
 			 statement.executeUpdate(employeeQuery);
 			 statement1.executeUpdate(employeePaymentClasificationQuery);
-			connection.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +126,6 @@ public class MySqlDB implements Repository {
 	}
 
 	private String getOneEmployeeQuery(int employeeId) {
-		
 		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE member_id='"+employeeId+"'";
 	}
 
@@ -158,18 +157,50 @@ public class MySqlDB implements Repository {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public ArrayList<Employee> getAllHourlyEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Employee> employeesList = new ArrayList<Employee>();
+		Statement statement = null;
+		try{
+			statement = (Statement) connection.createStatement();
+			ResultSet employeeDB = statement.executeQuery(hourlyEmployeesQuery());
+			while(employeeDB.next()){
+				Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
+						employeeDB.getString("name"),employeeDB.getString("address"));
+				employeesList.add(employee);
+			}
+			return employeesList;
+		}catch (Exception e){
+			System.err.println(e);
+			return employeesList;
+		}
+	}
+	private String hourlyEmployeesQuery() {
+		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE paymentClassification='hourly'";
 	}
 
 	@Override
 	public ArrayList<Employee> getAllCommissionedEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Employee> employeesList = new ArrayList<Employee>();
+		Statement statement = null;
+		try{
+			statement = (Statement) connection.createStatement();
+			ResultSet employeeDB = statement.executeQuery(commissionedEmployeesQuery());
+			while(employeeDB.next()){
+				Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
+						employeeDB.getString("name"),employeeDB.getString("address"));
+				employeesList.add(employee);
+			}
+			return employeesList;
+		}catch (Exception e){
+			System.err.println(e);
+			return employeesList;
+		}
 	}
+	private String commissionedEmployeesQuery() {
+		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE paymentClassification='commissioned'";
+	}
+
 	private String addEmployeeQuery(Employee employee) {
 		return "INSERT INTO payroll.employee "
 				+ "(member_id, name, address, paymentClassification) "
