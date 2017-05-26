@@ -2,6 +2,7 @@ package payrollcasestudy.boundaries;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -19,45 +20,47 @@ public class MySqlDB implements Repository {
 	private String localhost = "jdbc:mysql://localhost/payroll";
 	private String user = "admin";	
 	private String password = "admin";
-	@Override
-	public Employee getEmployee(int employeeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addEmployee(int employeeId, Employee employee) {
-		int preparedStatement;
+	Connection connection = null;
+	public MySqlDB(){
 		try {
-			Connection connection = DriverManager.getConnection(localhost, user, password);
-			String employeeQuery = "INSERT INTO payroll.employee "
-					+ "(member_id, name, address, paymentClassification) "
-					+ "VALUES ('"+employee.getEmployeeId()+"', '"+employee.getName()+"', '"+employee.getAddress()+"', 'salaried')";
-			String employeePaymentClasificationQuery = getEmployeePaymentClasificationQuery(employee);
-			Statement statement = (Statement) connection.createStatement();
-			Statement statement1 = (Statement) connection.createStatement();
-			preparedStatement = ((java.sql.Statement) statement).executeUpdate(employeeQuery);
-			preparedStatement = ((java.sql.Statement) statement1).executeUpdate(employeePaymentClasificationQuery);
-			connection.close();
+			connection = DriverManager.getConnection(localhost, user, password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void addEmployee(int employeeId, Employee employee) {
+		Statement statement = null;
+		Statement statement1 = null;
+		try {
+			String employeeQuery = addEmployeeQuery(employee);
+			String employeePaymentClasificationQuery = getEmployeePaymentClasificationQuery(employee);
+			 statement = (Statement) connection.createStatement();
+			 statement1 = (Statement) connection.createStatement();
+			 statement.executeUpdate(employeeQuery);
+			 statement1.executeUpdate(employeePaymentClasificationQuery);
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private String getEmployeePaymentClasificationQuery(Employee employee) {
-		String query = "";
 		if(employee.getPaymentClassification() instanceof  CommissionedPaymentClassification){
-			query = commissionedQuery(employee);
+			return commissionedQuery(employee);
 		}
 		if(employee.getPaymentClassification() instanceof  HourlyPaymentClassification){
-			query = hourlyQuery(employee);
+			return hourlyQuery(employee);
 		}
 		if(employee.getPaymentClassification() instanceof  SalariedClassification){
-			query = salariedQuery(employee);
+			return salariedQuery(employee);
 		}
-		return query;
+		return null;
 	}
-
+	
+	
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
@@ -107,9 +110,47 @@ public class MySqlDB implements Repository {
 	}
 
 	@Override
+	public Employee getEmployee(int employeeId) {
+		Statement statement = null;
+		try {
+			statement = (Statement) connection.createStatement();
+			ResultSet employeeDB = statement.executeQuery(getOneEmployeeQuery(employeeId));
+			if (employeeDB.next()) {
+			Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
+					employeeDB.getString("name"),employeeDB.getString("address"));return employee;}
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private String getOneEmployeeQuery(int employeeId) {
+		
+		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE member_id='"+employeeId+"'";
+	}
+
+	@Override
 	public ArrayList<Employee> getAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Employee> employeesList = new ArrayList<Employee>();
+		Statement statement = null;
+		try{
+			statement = (Statement) connection.createStatement();
+			ResultSet employeeDB = statement.executeQuery(allEmployeesQuery());
+			while(employeeDB.next()){
+				Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
+						employeeDB.getString("name"),employeeDB.getString("address"));
+				employeesList.add(employee);
+			}
+			return employeesList;
+		}catch (Exception e){
+			System.err.println(e);
+			return employeesList;
+		}
+	}
+
+	private String allEmployeesQuery() {
+		return "SELECT * FROM payroll.employee";
 	}
 
 	@Override
@@ -128,6 +169,11 @@ public class MySqlDB implements Repository {
 	public ArrayList<Employee> getAllCommissionedEmployees() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	private String addEmployeeQuery(Employee employee) {
+		return "INSERT INTO payroll.employee "
+				+ "(member_id, name, address, paymentClassification) "
+				+ "VALUES ('"+employee.getEmployeeId()+"', '"+employee.getName()+"', '"+employee.getAddress()+"', '"+employee.typeOfEmployee()+"')";
 	}
 	private String salariedQuery(Employee employee) {
 		SalariedClassification salariedClassification =  (SalariedClassification) employee.getPaymentClassification();

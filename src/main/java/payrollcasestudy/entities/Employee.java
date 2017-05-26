@@ -1,7 +1,10 @@
 package payrollcasestudy.entities;
 
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
+import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClassification;
+import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
+import payrollcasestudy.entities.paymentclassifications.SalariedClassification;
 import payrollcasestudy.entities.paymentmethods.PaymentMethod;
 import payrollcasestudy.entities.paymentschedule.PaymentSchedule;
 
@@ -104,7 +107,18 @@ public class Employee {
 	    	return hoursOfWork;
 	    }
 	
-	
+	 public String typeOfEmployee(){
+		 if(paymentClassification instanceof  CommissionedPaymentClassification){
+			 return "commissioned";
+			}
+		if(paymentClassification instanceof  HourlyPaymentClassification){
+			return "hourly";
+		}
+		if(paymentClassification instanceof  SalariedClassification){
+			return "salaried";
+		}
+		 return null;
+	 }
 
 
 }
