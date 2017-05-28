@@ -39,7 +39,7 @@ public class PayDayController {
 	}
 	
 	
-public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate, Repository repository){
+public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate){
 	ArrayList<Employee> listOfEmployees = new ArrayList<>();
 	listOfEmployees = repository.getAllHourlyEmployees();
 	for (Employee employee: listOfEmployees){
