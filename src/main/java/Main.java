@@ -1,30 +1,19 @@
+import controller.EmployeeController;
+import controller.PayDayController;
+import payrollcasestudy.boundaries.MemoryDB;
+import payrollcasestudy.boundaries.MySqlDB;
+import payrollcasestudy.boundaries.Repository;
 import view.AsHtml;
 import view.AsJson;
-import view.ToShow;
+import view.TypeOfView;
 
 public class Main {
-	private static ToShow view = new AsJson();
-	
-	public static void main(String[] args) 
-		{
-			view.root();
-			view.toGeneratePayrrolls();		
-			view.toSeeregistrationFormNewEmployee();		
-			view.toViewEmployees();
-			view.toViewEmployee();
-			view.toAddHours();
-			view.toAddSales();	
-			view.toSeeRegistrationFormForNewEmployee();	
-			view.toAddHoursToEmployee();
-			view.toAddSalesToEmployee();
-			view.employeeCreatedSuccessfully();
-			view.hourlyEmployeeCreatedSuccessfully();
-			view.comisionedEmployeeCreatedSuccessfully();
-			view.paymentsMadeSuccessfully();
-			view.hoursSuccessfullyAdded();
-			view.satisfactoryAggregateSalesAmount();
-			view.viewPaychecks();
-		
+	public static void main(String[] args) {
+		Repository repository =  new  MemoryDB();
+		EmployeeController employeeController = new EmployeeController(repository);
+		PayDayController payDayController = new PayDayController(repository);
+		TypeOfView view = new AsHtml(employeeController,payDayController);
+		view.init();
 		}
 	
 
