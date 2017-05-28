@@ -8,18 +8,13 @@ public class Main {
 	public static void main(String[] args) 
 		{
 			view.root();
-
-			view.toGeneratePayrrolls();
-		
-			view.toSeeregistrationFormNewEmployee();
-		
+			view.toGeneratePayrrolls();		
+			view.toSeeregistrationFormNewEmployee();		
 			view.toViewEmployees();
 			view.toViewEmployee();
 			view.toAddHours();
-			view.toAddSales();
-		
-			view.toSeeRegistrationFormForNewEmployee();
-		
+			view.toAddSales();	
+			view.toSeeRegistrationFormForNewEmployee();	
 			view.toAddHoursToEmployee();
 			view.toAddSalesToEmployee();
 			view.employeeCreatedSuccessfully();
@@ -28,7 +23,6 @@ public class Main {
 			view.paymentsMadeSuccessfully();
 			view.hoursSuccessfullyAdded();
 			view.satisfactoryAggregateSalesAmount();
-			
 			view.viewPaychecks();
 		
 		}
