@@ -1,10 +1,13 @@
 package payrollcasestudy.boundaries;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 import com.mysql.jdbc.Statement;
@@ -25,7 +28,6 @@ public class MySqlDB implements Repository {
 		try {
 			connection = DriverManager.getConnection(localhost, user, password);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -108,6 +110,40 @@ public class MySqlDB implements Repository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId) {
+		
+		ArrayList<PayCheck> paychecksList = new ArrayList<PayCheck>();
+		Statement statement = null;	
+		try{
+			statement = (Statement) connection.createStatement();
+			ResultSet paycheckBD = statement.executeQuery(allEmployeesPaychecksQuery(memberId));
+			while(paycheckBD.next()){
+				String coffeeName = paycheckBD.getString("COF_NAME");
+	            int supplierID = paycheckBD.getInt("SUP_ID");
+	            float price = paycheckBD.getFloat("PRICE");
+	            int sales = paycheckBD.getInt("SALES");
+	            int total = paycheckBD.getInt("TOTAL");
+	            Date payPeriodStart = paycheckBD.getDate("payPeriodStart");
+	            Date payDate = paycheckBD.getDate("payDate");
+	            Calendar payPeriodStart1 = Calendar.getInstance();
+	            payPeriodStart1.setTime(payPeriodStart);
+	            Calendar payDate1 = Calendar.getInstance();
+	            payDate1.setTime(payDate);
+	            PayCheck paycheck = new PayCheck(payPeriodStart1,payDate1);
+	            paychecksList.add(paycheck);
+			}
+			return paychecksList;
+		}catch (Exception e){
+			System.err.println(e);
+			return paychecksList;
+		}
+	}
+	
+	private String allEmployeesPaychecksQuery(int memberId) {
+		return "SELECT * FROM payroll.paycheck WHERE member_id='"+memberId+"'";
+	}
 
 	@Override
 	public Employee getEmployee(int employeeId) {
@@ -147,16 +183,11 @@ public class MySqlDB implements Repository {
 			return employeesList;
 		}
 	}
-
+	
 	private String allEmployeesQuery() {
 		return "SELECT * FROM payroll.employee";
 	}
-
-	@Override
-	public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public ArrayList<Employee> getAllHourlyEmployees() {
 		ArrayList<Employee> employeesList = new ArrayList<Employee>();
@@ -225,6 +256,12 @@ public class MySqlDB implements Repository {
 		return "INSERT INTO payroll.commissionedclassification "
 				+ "(member_id,commissionRate, monthlySalary) "
 				+ "VALUES ('"+employee.getEmployeeId()+"', '"+commissionedPaymentClassification.getCommissionRate()+"' ,'"+commissionedPaymentClassification.getMonthlySalary()+"')";
+	}
+
+	@Override
+	public ArrayList<PayCheck> getAllPaychecks() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

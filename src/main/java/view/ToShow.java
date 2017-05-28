@@ -21,5 +21,6 @@ public interface ToShow {
 	public void paymentsMadeSuccessfully();
 	public void hoursSuccessfullyAdded();
 	public void satisfactoryAggregateSalesAmount();
+	public void viewPaychecks();
 
 }

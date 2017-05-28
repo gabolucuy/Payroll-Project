@@ -24,5 +24,5 @@ public interface Repository {
 	    public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId);  
 		public ArrayList<Employee> getAllHourlyEmployees();
 		public ArrayList<Employee> getAllCommissionedEmployees();
-		
+		public ArrayList<PayCheck> getAllPaychecks();  
 }

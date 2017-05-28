@@ -73,6 +73,16 @@ public class MemoryDB implements Repository {
 		}
     	return listOfEmployeePaychecks;
     }
+    
+    @Override
+    public ArrayList<PayCheck> getAllPaychecks(){
+    	ArrayList<PayCheck> listOfEmployeePaychecks = new ArrayList<>();
+    	for(PayCheck paycheck : paychecks.values()){
+    			listOfEmployeePaychecks.add(paycheck);
+		}
+    	return listOfEmployeePaychecks;
+    }
+    
     @Override
 	public ArrayList<Employee> getAllHourlyEmployees() {
 		ArrayList<Employee> listOfEmployees = new ArrayList<>();

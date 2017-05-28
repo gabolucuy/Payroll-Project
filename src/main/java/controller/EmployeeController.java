@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import Gson.ToGson;
 import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.boundaries.Repository;
@@ -134,5 +135,14 @@ public class EmployeeController {
 		ArrayList<SalesReceipt> receipts = classification.getReceipts();	
 		return receipts;
 	}
-
+	public static String getAllPaychecksAsJson(){
+		ArrayList<PayCheck> listOfEmployeePayChecks = new ArrayList<>();
+		String json ="";
+		ToGson tojson= new ToGson();
+		listOfEmployeePayChecks = repository.getAllPaychecks();
+		json=tojson.ToGson(listOfEmployeePayChecks);
+		System.out.println("***************************************");
+		System.out.println(json);
+		return json;
+	}
 }

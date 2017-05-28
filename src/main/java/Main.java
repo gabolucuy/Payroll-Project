@@ -1,8 +1,9 @@
 import view.AsHtml;
+import view.AsJson;
 import view.ToShow;
 
 public class Main {
-	private static ToShow view = new AsHtml();
+	private static ToShow view = new AsJson();
 	
 	public static void main(String[] args) 
 		{
@@ -27,6 +28,8 @@ public class Main {
 			view.paymentsMadeSuccessfully();
 			view.hoursSuccessfullyAdded();
 			view.satisfactoryAggregateSalesAmount();
+			
+			view.viewPaychecks();
 		
 		}
 	

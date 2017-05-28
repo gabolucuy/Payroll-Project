@@ -18,9 +18,10 @@ import payrollcasestudy.entities.TimeCard;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
-public class AsHtml implements ToShow {
+public class AsJson implements ToShow {
+
 	static VelocityTemplateEngine velocity;
-	private static Repository repository =  new  MySqlDB();
+	private static Repository repository =  new  MemoryDB();
 	static EmployeeController employeeController = new EmployeeController(repository);
 	static PayDayController payDayController = new PayDayController(repository);
 	
@@ -55,7 +56,7 @@ public class AsHtml implements ToShow {
 	public void toViewEmployees() {
 		HashMap<String,Object> view = new HashMap<String, Object>();
 		get("/ver_lista_empleados", (request, response) -> {
-			ArrayList<Employee> employees=new ArrayList<>();
+			ArrayList<Employee> employees = new ArrayList<>();
 			employees = employeeController.getListOfAllEmployees();
 			view.put("employees", employees);
 		      return new ModelAndView(view, "Employee/showEmployees.vtl");
@@ -197,8 +198,14 @@ public class AsHtml implements ToShow {
 
 	@Override
 	public void viewPaychecks() {
-		// TODO Auto-generated method stub
-		
-	}
+		HashMap<String,Object> view = new HashMap<String, Object>();
+		get("/verPaychecks", (request, response) -> {
+			String json;
+			json = employeeController.getAllPaychecksAsJson();
+			view.put("jsons", json);
+		      return new ModelAndView(view, "Employee/viewPaychecksJson.vtl");
+		    }, new VelocityTemplateEngine());
+		}
+
 
 }
