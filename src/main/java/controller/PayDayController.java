@@ -30,10 +30,10 @@ public class PayDayController {
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute(repository);
-		return "Se pago a todos los empleados";
+		return "Se pago a todos los empleados satisfactoriamente!";
 	}
 	
-public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate, Repository repository){
+public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate){
 	ArrayList<Employee> listOfEmployees = new ArrayList<>();
 	listOfEmployees = repository.getAllHourlyEmployees();
 	for (Employee employee: listOfEmployees){

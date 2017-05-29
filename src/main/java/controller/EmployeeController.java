@@ -3,10 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
+import Gson.FromGson;
 import Gson.ToGson;
 import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.Repository;
@@ -16,7 +13,6 @@ import payrollcasestudy.entities.SalesReceipt;
 import payrollcasestudy.entities.TimeCard;
 import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
-import payrollcasestudy.transactions.PaydayTransaction;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddCommissionedEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
@@ -104,9 +100,9 @@ public class EmployeeController {
 		Transaction addTimeCard = new AddTimeCardTransaction(payDate, hours1, id);
          addTimeCard.execute(repository);
 		
-		
 		return "Horas agregadas Satisfactoriamente";
 	}
+	
 	
 	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day){
 		double sale1 = Double.parseDouble(sale);
@@ -139,5 +135,14 @@ public class EmployeeController {
 		ToGson tojson= new ToGson();
 		listOfEmployeePayChecks = repository.getAllPaychecks();
 		return tojson.ToGson(listOfEmployeePayChecks);	
+	}
+	
+	public static String addTimeCardsToEmployees(String json){
+		FromGson fromgson = new FromGson();
+		ArrayList<AddTimeCardTransaction> list = fromgson.FromGson(json);
+		for(AddTimeCardTransaction addTimeCard : list){
+			addTimeCard.execute(repository);
+		}		
+		return "Horas agregadas a empleados Satisfactoriamente";
 	}
 }
