@@ -68,8 +68,8 @@ public class EmployeeController {
 		return listOfEmployeePayChecks;
 	}
 	
-	public static Employee getEmployee(int i) {
-		Employee employee  = repository.getEmployee(i);
+	public static Employee getEmployee(int employeeId) {
+		Employee employee  = repository.getEmployee(employeeId);
 		return employee;
 	}
 	public static PayCheck getPayCheck(int employeeId){
@@ -140,8 +140,8 @@ public class EmployeeController {
 	
 	public static String addTimeCardsToEmployees(String json){
 		FromGson fromgson = new FromGson();
-		ArrayList<AddTimeCardTransaction> list = fromgson.FromGson(json);
-		for(AddTimeCardTransaction addTimeCard : list){
+		ArrayList<AddTimeCardTransaction> listOfTimeCardTransactions = fromgson.FromGson(json);
+		for(AddTimeCardTransaction addTimeCard : listOfTimeCardTransactions){
 			addTimeCard.execute(repository);
 		}		
 		return "Horas agregadas a empleados Satisfactoriamente";
