@@ -33,12 +33,5 @@ public class PayDayController {
 		return "Se pago a todos los empleados satisfactoriamente!";
 	}
 	
-public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate){
-	ArrayList<Employee> listOfEmployees = new ArrayList<>();
-	listOfEmployees = repository.getAllHourlyEmployees();
-	for (Employee employee: listOfEmployees){
-        Transaction addTimeCard = new AddTimeCardTransaction(payDate, employee.getHoursOfWork(), employee.getEmployeeId());
-        addTimeCard.execute(repository);
-	}
-}
+
 }
