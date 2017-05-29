@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import Gson.FromGson;
 import Gson.ToGson;
 import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.PayrollDatabase;
@@ -105,9 +106,9 @@ public class EmployeeController {
 		Transaction addTimeCard = new AddTimeCardTransaction(payDate, hours1, id);
          addTimeCard.execute(repository);
 		
-		
 		return "Horas agregadas Satisfactoriamente";
 	}
+	
 	
 	public static String addSalesToEmployee(String employeeId,String sale,String year,String month,String day){
 		double sale1 = Double.parseDouble(sale);
@@ -144,5 +145,14 @@ public class EmployeeController {
 		System.out.println("***************************************");
 		System.out.println(json);
 		return json;
+	}
+	
+	public static String addTimeCardsToEmployees(String json){
+		FromGson fromgson = new FromGson();
+		ArrayList<AddTimeCardTransaction> list = fromgson.FromGson(json);
+		for(AddTimeCardTransaction addTimeCard : list){
+			addTimeCard.execute(repository);
+		}		
+		return "Horas agregadas a empleados Satisfactoriamente";
 	}
 }

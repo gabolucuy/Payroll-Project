@@ -143,7 +143,13 @@ public class AsHtml implements TypeOfView {
 			 view.put("jsons", json);
 			 return new ModelAndView(view, "Employee/viewPaychecksJson.vtl");
 			  }, new VelocityTemplateEngine());
-			 
+		
+		get("/agrgarTarjetasComoJson", (request, response) -> {
+			 return new ModelAndView(view, "Employee/agrgarTarjetasComoJson.vtl");
+			  }, new VelocityTemplateEngine());
+		
+		post("/tarjetasJsonAgregadas", (request, response) -> employeeController.addTimeCardsToEmployees(request.queryParams("json")));
+			
 	}
 
 
