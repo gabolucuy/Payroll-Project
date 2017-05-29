@@ -15,6 +15,4 @@ public class Main {
 		TypeOfView view = new AsHtml(employeeController,payDayController);
 		view.init();
 		}
-	
-
 }

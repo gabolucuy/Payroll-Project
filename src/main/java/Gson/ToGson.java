@@ -13,7 +13,6 @@ public class ToGson {
 		for(PayCheck paycheck : paychecks){
 		jsonList = jsonList + gson.toJson(paycheck);
 		}
-		
 		return jsonList;
 	}
 }
