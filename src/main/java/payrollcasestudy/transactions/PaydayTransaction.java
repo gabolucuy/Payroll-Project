@@ -1,6 +1,5 @@
 package payrollcasestudy.transactions;
 
-import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
@@ -10,7 +9,6 @@ import java.util.*;
 
 public class PaydayTransaction implements Transaction{
     private Calendar payDate;
-    private PayrollDatabase database = PayrollDatabase.globalPayrollDatabase;
     private Map<Integer, PayCheck> payChecks = new HashMap<Integer, PayCheck>();
     
     public PaydayTransaction(Calendar payDate) {
@@ -23,8 +21,8 @@ public class PaydayTransaction implements Transaction{
             if (employee.isPayDate(payDate)){
                 PayCheck payCheck = new PayCheck(employee.getPayPeriodStartDay(payDate),payDate);
                 payCheck.setMemberId(employeeId);
-                payChecks.put(employeeId, payCheck);               
                 employee.payDay(payCheck);
+                payChecks.put(employeeId, payCheck);               
                 repository.addPayCheck(employeeId, payCheck);
                
             }

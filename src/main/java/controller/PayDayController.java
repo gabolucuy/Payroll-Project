@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import payrollcasestudy.boundaries.MemoryDB;
-import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
@@ -29,7 +28,6 @@ public class PayDayController {
 		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
 		Calendar payDate = new GregorianCalendar(year1, month1, day1);
-		//addTimeCardsTransactionsToHourlyEmployees(payDate);
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute(repository);
 		return "Se pago a todos los empleados";
