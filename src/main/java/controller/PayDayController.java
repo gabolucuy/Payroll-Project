@@ -18,16 +18,13 @@ import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class PayDayController {
-	//private static Map<Integer, PaydayTransaction> GlobalPaydaysList = new HashMap<Integer, PaydayTransaction>();
-	private static Repository repository =  new  MemoryDB();
 	
-	
+	private static Repository repository;
 	public PayDayController(Repository repository) {
 		this.repository = repository;
 	}
 
-
-	public static String pagarATodosLosEmpleados(String year,String month,String day){
+	public static String payAllEmployees(String year,String month,String day){
 		int day1=Integer.parseInt(day); 
 		int month1=Integer.parseInt(month)-1; 
 		int year1=Integer.parseInt(year); 
@@ -37,7 +34,6 @@ public class PayDayController {
         paydayTransaction.execute(repository);
 		return "Se pago a todos los empleados";
 	}
-	
 	
 public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate, Repository repository){
 	ArrayList<Employee> listOfEmployees = new ArrayList<>();

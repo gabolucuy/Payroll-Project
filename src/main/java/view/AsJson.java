@@ -111,23 +111,23 @@ public class AsJson implements TypeOfView {
 		    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> {
-			view.put("message",employeeController.registrar_empleado_asalariado(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"))); 
+			view.put("message",employeeController.addSalariedEmployee(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"))); 
 			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
 	    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoPorHoras", (request, response) -> {
-			view.put("message",employeeController.registrar_empleado_por_horas(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
+			view.put("message",employeeController.addHourlyEmployee(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
 			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
 	    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> {
-			view.put("message",employeeController.registrar_empleado_asalariadoComision(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
+			view.put("message",employeeController.addComissionedEmployee(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
 			
 			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
 	    }, new VelocityTemplateEngine());
 		
 		post("/pagarATodosLosEmpleados", (request, response) -> {
-			payDayController.pagarATodosLosEmpleados(request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
+			payDayController.payAllEmployees(request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
 			 return new VelocityTemplateEngine().render(
 				        new ModelAndView(new HashMap(), "Messages/paymentsMadeSuccessfully.vtl")
 				    );

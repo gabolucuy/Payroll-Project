@@ -33,7 +33,7 @@ public class EmployeeController {
 		this.repository =repository;
 	}
 
-	public static String registrar_empleado_asalariado(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
+	public static String addSalariedEmployee(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		 Transaction addEmployeeTransaction =
@@ -42,7 +42,7 @@ public class EmployeeController {
 	        return "Empleado a sueldo fijo creado satisfactoriamente!";
 	}
 	
-	public static String registrar_empleado_por_horas(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
+	public static String addHourlyEmployee(String nombre_empleado,String direccion_empleado,String ci_employee, String amount) {
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		Transaction addEmployeeTransaction =
@@ -51,7 +51,7 @@ public class EmployeeController {
 	        return "Empleado por hora creado satisfactoriamente!";
 		
 	}
-	public static String registrar_empleado_asalariadoComision(String nombre_empleado,String direccion_empleado,String ci_employee, String amount,String comision){
+	public static String addComissionedEmployee(String nombre_empleado,String direccion_empleado,String ci_employee, String amount,String comision){
 		int ci = Integer.parseInt(ci_employee);
 		double amountt= Double.parseDouble(amount);
 		double comisionn= Double.parseDouble(comision);
