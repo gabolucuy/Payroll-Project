@@ -111,26 +111,24 @@ public class AsHtml implements TypeOfView {
 		
 		post("/registrarEmpleadoSueldoFijo", (request, response) -> {
 			view.put("message",employeeController.addSalariedEmployee(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"))); 
-			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
+			return new ModelAndView(view, "Messages/satisfactoryAction.vtl");
 	    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoPorHoras", (request, response) -> {
 			view.put("message",employeeController.addHourlyEmployee(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount")));
-			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
+			return new ModelAndView(view, "Messages/satisfactoryAction.vtl");
 	    }, new VelocityTemplateEngine());
 		
 		post("/registrarEmpleadoSueldoFijoComisionado", (request, response) -> {
 			view.put("message",employeeController.addComissionedEmployee(request.queryParams("nombre_empleado"),request.queryParams("direccion_empleado"),request.queryParams("ci"), request.queryParams("amount"),request.queryParams("comision")));
 			
-			return new ModelAndView(view, "Messages/employeeCreatedSuccessfully.vtl");
+			return new ModelAndView(view, "Messages/satisfactoryAction.vtl");
 	    }, new VelocityTemplateEngine());
 		
 		post("/pagarATodosLosEmpleados", (request, response) -> {
-			payDayController.payAllEmployees(request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));
-			 return new VelocityTemplateEngine().render(
-				        new ModelAndView(new HashMap(), "Messages/paymentsMadeSuccessfully.vtl")
-				    );
-				});
+			view.put("message",payDayController.payAllEmployees(request.queryParams("year"),request.queryParams("month"),request.queryParams("day")));
+			return new ModelAndView(view, "Messages/satisfactoryAction.vtl");
+	    }, new VelocityTemplateEngine());
 		
 		post("/addHourstoEmployee", (request, response) -> {
 			employeeController.addHoursToEmployee(request.queryParams("employeeId"),request.queryParams("hours"),request.queryParams("year"),request.queryParams("month"),request.queryParams("day"));

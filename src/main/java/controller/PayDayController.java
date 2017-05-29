@@ -32,7 +32,7 @@ public class PayDayController {
 		//addTimeCardsTransactionsToHourlyEmployees(payDate);
 		PaydayTransaction paydayTransaction = new PaydayTransaction(payDate);
         paydayTransaction.execute(repository);
-		return "Se pago a todos los empleados";
+		return "Se pago a todos los empleados satisfactoriamente!";
 	}
 	
 public static void addTimeCardsTransactionsToHourlyEmployees(Calendar payDate){
