@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import payrollcasestudy.DatabaseResource;
 import payrollcasestudy.boundaries.MemoryDB;
-import payrollcasestudy.boundaries.PayrollDatabase;
+
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;

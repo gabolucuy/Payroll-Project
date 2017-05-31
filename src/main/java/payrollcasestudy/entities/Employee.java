@@ -91,6 +91,8 @@ public class Employee {
         payCheck.setGrossPay(grossPay);
         payCheck.setNetPay(netPay);
         payCheck.setDeductions(deductions);
+        System.out.println("********************************************");
+        System.out.println(grossPay);
         paymentMethod.pay(payCheck);
     }
 

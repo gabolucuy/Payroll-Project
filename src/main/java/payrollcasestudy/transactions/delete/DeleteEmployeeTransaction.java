@@ -1,6 +1,6 @@
 package payrollcasestudy.transactions.delete;
 
-import payrollcasestudy.boundaries.PayrollDatabase;
+
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.transactions.Transaction;
 

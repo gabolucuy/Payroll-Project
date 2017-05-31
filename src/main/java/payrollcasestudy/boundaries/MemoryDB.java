@@ -2,6 +2,7 @@ package payrollcasestudy.boundaries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,10 +12,11 @@ import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClass
 import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
 
 public class MemoryDB implements Repository {
-	public static PayrollDatabase globalPayrollDatabase = new PayrollDatabase();
+	
     private Map<Integer, Employee> employees = new HashMap<Integer, Employee>();
     public Map<Integer, Employee> unionMembers = new HashMap<Integer, Employee>();
-    public Map<Integer, PayCheck> paychecks = new HashMap<Integer, PayCheck>();
+    private List<PayCheck> paychecks = new ArrayList<PayCheck>();
+    
     @Override
     public Employee getEmployee(int employeeId) {
         return employees.get(employeeId);
@@ -38,7 +40,7 @@ public class MemoryDB implements Repository {
     }
     @Override
     public void addPayCheck(int memberId, PayCheck paycheck) {
-    	paychecks.put(memberId, paycheck);
+    	paychecks.add(paycheck);
     }
     @Override
     public void addUnionMember(int memberId, Employee employee) {
@@ -67,7 +69,7 @@ public class MemoryDB implements Repository {
     @Override
     public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId){
     	ArrayList<PayCheck> listOfEmployeePaychecks = new ArrayList<>();
-    	for(PayCheck paycheck : paychecks.values()){
+    	for(PayCheck paycheck : paychecks){
     		if(paycheck.getMemberId()==memberId)
     			listOfEmployeePaychecks.add(paycheck);
 		}
@@ -77,7 +79,7 @@ public class MemoryDB implements Repository {
     @Override
     public ArrayList<PayCheck> getAllPaychecks(){
     	ArrayList<PayCheck> listOfEmployeePaychecks = new ArrayList<>();
-    	for(PayCheck paycheck : paychecks.values()){
+    	for(PayCheck paycheck : paychecks){
     			listOfEmployeePaychecks.add(paycheck);
 		}
     	return listOfEmployeePaychecks;

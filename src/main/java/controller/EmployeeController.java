@@ -6,7 +6,6 @@ import java.util.GregorianCalendar;
 import Gson.FromGson;
 import Gson.ToGson;
 import payrollcasestudy.boundaries.MemoryDB;
-import payrollcasestudy.boundaries.PayrollDatabase;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.PayCheck;
@@ -22,7 +21,7 @@ import payrollcasestudy.transactions.add.AddSalesReceiptTransaction;
 import payrollcasestudy.transactions.add.AddTimeCardTransaction;
 
 public class EmployeeController {
-	private static Repository repository =  new  MemoryDB();
+	private static Repository repository;
 	
 
 	public EmployeeController(Repository repository) {
@@ -73,7 +72,7 @@ public class EmployeeController {
 		return employee;
 	}
 	public static PayCheck getPayCheck(int employeeId){
-		PayCheck paycheck = PayrollDatabase.globalPayrollDatabase.getPaycheck(employeeId);
+		PayCheck paycheck = repository.getPaycheck(employeeId);
 		return paycheck;
 	}
 	

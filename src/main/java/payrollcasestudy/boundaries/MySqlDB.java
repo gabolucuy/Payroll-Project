@@ -120,11 +120,6 @@ public class MySqlDB implements Repository {
 			statement = (Statement) connection.createStatement();
 			ResultSet paycheckBD = statement.executeQuery(allEmployeesPaychecksQuery(memberId));
 			while(paycheckBD.next()){
-				String coffeeName = paycheckBD.getString("COF_NAME");
-	            int supplierID = paycheckBD.getInt("SUP_ID");
-	            float price = paycheckBD.getFloat("PRICE");
-	            int sales = paycheckBD.getInt("SALES");
-	            int total = paycheckBD.getInt("TOTAL");
 	            Date payPeriodStart = paycheckBD.getDate("payPeriodStart");
 	            Date payDate = paycheckBD.getDate("payDate");
 	            Calendar payPeriodStart1 = Calendar.getInstance();
