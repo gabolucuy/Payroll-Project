@@ -7,6 +7,8 @@ import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.ServiceCharge;
+import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
+import payrollcasestudy.entities.affiliations.NormalAffiliation;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddServiceChargeTransaction;
@@ -33,7 +35,7 @@ public class AddServiceChargeTransactionTest {
         assertThat(employee, is(notNullValue()));
 
         int memberId = 86; //Maxwell Smart
-        UnionAffiliation unionAffiliation = new UnionAffiliation(memberId,12.5);
+        NewUnionAffiliation unionAffiliation = new NormalAffiliation(memberId,12.5);
         employee.setUnionAffiliation(unionAffiliation);
         repository.addUnionMember(memberId, employee);
         assertThat(repository.getUnionMember(memberId), is(notNullValue()));

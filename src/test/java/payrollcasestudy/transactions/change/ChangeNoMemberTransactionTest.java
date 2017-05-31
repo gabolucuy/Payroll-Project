@@ -7,6 +7,8 @@ import payrollcasestudy.boundaries.MemoryDB;
 
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
+import payrollcasestudy.entities.affiliations.NormalAffiliation;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
@@ -29,7 +31,7 @@ public class ChangeNoMemberTransactionTest {
         addEmployeeTransaction.execute(repository);
 
         Employee employee = repository.getEmployee(employeeId);
-        UnionAffiliation unionAffiliation = new UnionAffiliation(memberId,92.1);
+        NewUnionAffiliation unionAffiliation = new NormalAffiliation(memberId,92.1);
         employee.setUnionAffiliation(unionAffiliation);
         assertThat(employee.getUnionAffiliation(), is(unionAffiliation));
 
@@ -40,7 +42,7 @@ public class ChangeNoMemberTransactionTest {
         noMemberTransaction.execute(repository);
 
         employee = repository.getEmployee(employeeId);
-        assertThat(employee.getUnionAffiliation(), is(UnionAffiliation.NO_AFFILIATION));
+        assertThat(employee.getUnionAffiliation(), is(NewUnionAffiliation.NO_AFFILIATION));
 
         assertThat(repository.getUnionMember(memberId), is(nullValue()));
     }

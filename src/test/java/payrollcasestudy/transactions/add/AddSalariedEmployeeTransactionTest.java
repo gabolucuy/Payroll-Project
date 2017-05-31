@@ -6,6 +6,7 @@ import payrollcasestudy.DatabaseResource;
 import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.SalariedClassification;
@@ -40,7 +41,7 @@ public class AddSalariedEmployeeTransactionTest {
 
         assertThat(employee.getPaymentSchedule(), is(instanceOf(MonthlyPaymentSchedule.class)));
         assertThat(employee.getPaymentMethod(), is(instanceOf(HoldMethod.class)));
-        assertThat(employee.getUnionAffiliation(), is(UnionAffiliation.NO_AFFILIATION));
+        assertThat(employee.getUnionAffiliation(), is(NewUnionAffiliation.NO_AFFILIATION));
     }
 
 }

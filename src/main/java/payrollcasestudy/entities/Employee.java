@@ -1,5 +1,6 @@
 package payrollcasestudy.entities;
 
+import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
@@ -18,13 +19,13 @@ public class Employee {
     private String name;
     private String address;
     private double hoursOfWork;
-    private UnionAffiliation unionAffiliation = UnionAffiliation.NO_AFFILIATION;
+    private NewUnionAffiliation unionAffiliation = NewUnionAffiliation.NO_AFFILIATION;
 
     public Employee(int employeeId, String name, String address) {
         this.employeeId = employeeId;
         this.name = name;
         this.address = address;
-        unionAffiliation = UnionAffiliation.NO_AFFILIATION;
+        unionAffiliation = NewUnionAffiliation.NO_AFFILIATION;
         
     }
 
@@ -96,12 +97,12 @@ public class Employee {
         paymentMethod.pay(payCheck);
     }
 
-	public UnionAffiliation getUnionAffiliation() {
+	public NewUnionAffiliation getUnionAffiliation() {
 		// TODO Auto-generated method stub
 		return unionAffiliation;
 	}
 
-	public void setUnionAffiliation(UnionAffiliation unionAffiliation) {
+	public void setUnionAffiliation(NewUnionAffiliation unionAffiliation) {
 		// TODO Auto-generated method stub
 		this.unionAffiliation = unionAffiliation;
 	}

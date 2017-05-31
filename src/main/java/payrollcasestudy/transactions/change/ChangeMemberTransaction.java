@@ -1,6 +1,7 @@
 package payrollcasestudy.transactions.change;
 
 import payrollcasestudy.entities.Employee;
+import payrollcasestudy.entities.affiliations.NormalAffiliation;
 import payrollcasestudy.entities.affiliations.UnionAffiliation;
 
 public class ChangeMemberTransaction extends ChangeEmployeeTransaction{
@@ -16,7 +17,7 @@ public class ChangeMemberTransaction extends ChangeEmployeeTransaction{
 
 	@Override
 	public void changeEmployee(Employee employee) {
-		employee.setUnionAffiliation(new UnionAffiliation(memberId,d));
+		employee.setUnionAffiliation(new NormalAffiliation(memberId,d));
 		database.addUnionMember(memberId, employee);
 		
 	}
