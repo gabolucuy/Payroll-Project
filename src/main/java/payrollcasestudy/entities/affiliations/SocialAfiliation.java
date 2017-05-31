@@ -41,7 +41,6 @@ public class SocialAfiliation implements Afiliation {
 	@Override
 	public double calculateDeduction(PayCheck payCheck) {
 		 double totalDeductions = 0;
-	        totalDeductions += numberOfFridaysInPayPeriod(payCheck.getPayPeriodStart(), payCheck.getPayPeriodEnd()) * amount;
 	        for (ServiceCharge serviceCharge : serviceCharges.values()){
 	            if (isInPayPeriod(serviceCharge.getDate(), payCheck)){
 	                totalDeductions += serviceCharge.getAmount();
@@ -49,16 +48,7 @@ public class SocialAfiliation implements Afiliation {
 	        }
 	        return totalDeductions;
 	}
-	public double numberOfFridaysInPayPeriod(Calendar payPeriodStart, Calendar payPeriodEnd) {
-        int numberOfFridays = 0;
-        while (!payPeriodStart.after(payPeriodEnd)){
-            if (payPeriodStart.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
-                numberOfFridays++;
-            }
-            payPeriodStart.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return numberOfFridays;
-	}
+	
 
 	
 

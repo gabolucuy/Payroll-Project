@@ -15,6 +15,6 @@ public interface  Afiliation {
 	public int getNumberId();
 	public Double getDues();
 	public double calculateDeduction(PayCheck payCheck);
-	public double numberOfFridaysInPayPeriod(Calendar payPeriodStart, Calendar payPeriodEnd);
+	
 
 }
