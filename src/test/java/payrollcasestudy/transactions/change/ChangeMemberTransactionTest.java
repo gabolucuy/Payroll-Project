@@ -7,7 +7,6 @@ import payrollcasestudy.boundaries.MemoryDB;
 import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.transactions.add.AddEmployeeTransaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
 
@@ -40,4 +39,5 @@ public class ChangeMemberTransactionTest {
         Employee member = repository.getUnionMember(memberId);
         assertThat(member, is(employee));
     }
+   
 }

@@ -1,7 +1,8 @@
 package payrollcasestudy.transactions.change;
 
 import payrollcasestudy.entities.Employee;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
+import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
+
 
 public abstract class ChangeAffiliationTransaction extends ChangeEmployeeTransaction{
 
@@ -15,7 +16,7 @@ public abstract class ChangeAffiliationTransaction extends ChangeEmployeeTransac
         employee.setUnionAffiliation(getAffiliation());
     }
 
-    protected abstract UnionAffiliation getAffiliation();
+    protected abstract NewUnionAffiliation getAffiliation();
 
     protected abstract void recordMembership(Employee employee);
 

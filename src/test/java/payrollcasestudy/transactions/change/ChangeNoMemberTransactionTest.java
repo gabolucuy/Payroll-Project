@@ -9,7 +9,6 @@ import payrollcasestudy.boundaries.Repository;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
 import payrollcasestudy.entities.affiliations.NormalAffiliation;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.transactions.Transaction;
 import payrollcasestudy.transactions.add.AddHourlyEmployeeTransaction;
 

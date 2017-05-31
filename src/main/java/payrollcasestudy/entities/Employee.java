@@ -1,7 +1,6 @@
 package payrollcasestudy.entities;
 
 import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.entities.paymentclassifications.CommissionedPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.HourlyPaymentClassification;
 import payrollcasestudy.entities.paymentclassifications.PaymentClassification;

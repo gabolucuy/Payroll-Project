@@ -3,7 +3,6 @@ package payrollcasestudy.transactions.change;
 import payrollcasestudy.entities.Employee;
 import payrollcasestudy.entities.ServiceCharge;
 import payrollcasestudy.entities.affiliations.NewUnionAffiliation;
-import payrollcasestudy.entities.affiliations.UnionAffiliation;
 import payrollcasestudy.transactions.Transaction;
 
 public class ChangeNoMemberTransaction extends ChangeEmployeeTransaction {
