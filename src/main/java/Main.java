@@ -9,7 +9,7 @@ import view.TypeOfView;
 
 public class Main {
 	public static void main(String[] args) {
-		Repository repository =  new  MemoryDB();
+		Repository repository =  new  MySqlDB();
 		EmployeeController employeeController = new EmployeeController(repository);
 		PayDayController payDayController = new PayDayController(repository);
 		TypeOfView view = new AsHtml(employeeController,payDayController);

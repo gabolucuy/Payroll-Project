@@ -23,10 +23,13 @@ public class MySqlDB implements Repository {
 	private String localhost = "jdbc:mysql://localhost/payroll";
 	private String user = "admin";	
 	private String password = "admin";
+	Statement statement = null;
 	Connection connection = null;
+	private Employee employee = null;
 	public MySqlDB(){
 		try {
 			connection = DriverManager.getConnection(localhost, user, password);
+			statement = (Statement) connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -34,12 +37,10 @@ public class MySqlDB implements Repository {
 	
 	@Override
 	public void addEmployee(int employeeId, Employee employee) {
-		Statement statement = null;
 		Statement statement1 = null;
 		try {
 			String employeeQuery = addEmployeeQuery(employee);
 			String employeePaymentClasificationQuery = getEmployeePaymentClasificationQuery(employee);
-			 statement = (Statement) connection.createStatement();
 			 statement1 = (Statement) connection.createStatement();
 			 statement.executeUpdate(employeeQuery);
 			 statement1.executeUpdate(employeePaymentClasificationQuery);
@@ -112,12 +113,9 @@ public class MySqlDB implements Repository {
 	}
 	
 	@Override
-	public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId) {
-		
-		ArrayList<PayCheck> paychecksList = new ArrayList<PayCheck>();
-		Statement statement = null;	
-		try{
-			statement = (Statement) connection.createStatement();
+	public ArrayList<PayCheck> getAllPaychecksOfEmployee(int memberId) {		
+		ArrayList<PayCheck> paychecksList = new ArrayList<PayCheck>();	
+		try{	
 			ResultSet paycheckBD = statement.executeQuery(allEmployeesPaychecksQuery(memberId));
 			while(paycheckBD.next()){
 	            Date payPeriodStart = paycheckBD.getDate("payPeriodStart");
@@ -142,34 +140,24 @@ public class MySqlDB implements Repository {
 
 	@Override
 	public Employee getEmployee(int employeeId) {
-		Statement statement = null;
 		try {
-			statement = (Statement) connection.createStatement();
-			ResultSet employeeDB = statement.executeQuery(getOneEmployeeQuery(employeeId));
-			if (employeeDB.next()) {
-			Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
-					employeeDB.getString("name"),employeeDB.getString("address"));return employee;}
-			return null;
+			ResultSet resultSet = statement.executeQuery(getOneEmployeeQuery(employeeId));
+			resultSet.next() ;
+			employee = convertToEmployeeObject(resultSet);
+			return employee;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-
-	private String getOneEmployeeQuery(int employeeId) {
-		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE member_id='"+employeeId+"'";
-	}
-
 	@Override
 	public ArrayList<Employee> getAllEmployees() {
 		ArrayList<Employee> employeesList = new ArrayList<Employee>();
-		Statement statement = null;
 		try{
-			statement = (Statement) connection.createStatement();
 			ResultSet employeeDB = statement.executeQuery(allEmployeesQuery());
 			while(employeeDB.next()){
-				Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
-						employeeDB.getString("name"),employeeDB.getString("address"));
+				employee = convertToEmployeeObject(employeeDB);
 				employeesList.add(employee);
 			}
 			return employeesList;
@@ -186,13 +174,10 @@ public class MySqlDB implements Repository {
 	@Override
 	public ArrayList<Employee> getAllHourlyEmployees() {
 		ArrayList<Employee> employeesList = new ArrayList<Employee>();
-		Statement statement = null;
 		try{
-			statement = (Statement) connection.createStatement();
-			ResultSet employeeDB = statement.executeQuery(hourlyEmployeesQuery());
-			while(employeeDB.next()){
-				Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
-						employeeDB.getString("name"),employeeDB.getString("address"));
+			ResultSet resultSet = statement.executeQuery(hourlyEmployeesQuery());
+			while(resultSet.next()){
+				employee = convertToEmployeeObject(resultSet);
 				employeesList.add(employee);
 			}
 			return employeesList;
@@ -208,13 +193,15 @@ public class MySqlDB implements Repository {
 	@Override
 	public ArrayList<Employee> getAllCommissionedEmployees() {
 		ArrayList<Employee> employeesList = new ArrayList<Employee>();
-		Statement statement = null;
+		String query = commissionedEmployeesQuery();
+		return getListOfEmployees(query);
+	}
+
+	private ArrayList<Employee> getListOfEmployees(String query) {
 		try{
-			statement = (Statement) connection.createStatement();
-			ResultSet employeeDB = statement.executeQuery(commissionedEmployeesQuery());
-			while(employeeDB.next()){
-				Employee employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
-						employeeDB.getString("name"),employeeDB.getString("address"));
+			ResultSet resultSet = statement.executeQuery(query);
+			while(resultSet.next()){
+				employee = convertToEmployeeObject(resultSet);
 				employeesList.add(employee);
 			}
 			return employeesList;
@@ -222,6 +209,15 @@ public class MySqlDB implements Repository {
 			System.err.println(e);
 			return employeesList;
 		}
+	}
+
+	private Employee convertToEmployeeObject(ResultSet employeeDB) throws SQLException {
+		 employee = new Employee(Integer.parseInt(employeeDB.getString("member_id")),
+				employeeDB.getString("name"),employeeDB.getString("address"));
+		return employee;
+	}
+	private String getOneEmployeeQuery(int employeeId) {
+		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE member_id='"+employeeId+"'";
 	}
 	private String commissionedEmployeesQuery() {
 		return "SELECT member_id, name, address, paymentClassification FROM payroll.employee WHERE paymentClassification='commissioned'";
